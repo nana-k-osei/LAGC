@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Love All Girls Club - Product Details" />
+    <title>Product - Love All Girls Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="font-sans bg-white">
+    <!-- Top Utility Bar -->
+    <div class="w-full bg-black text-white text-sm py-2">
+      <div class="container mx-auto px-8 flex justify-end space-x-6">
+        <a href="#" class="hover:text-orange-500">Help</a>
+        <a href="#" class="hover:text-orange-500">Book a Session</a>
+        <a href="#" class="hover:text-orange-500">Join Us</a>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav
+      id="site-nav"
+      class="fixed w-full bg-white z-10 border-b border-gray-100 mt-8"
+    >
+      <div
+        class="container mx-auto px-9 py-5 flex justify-between items-center"
+      >
+        <a href="index.html">
+          <img
+            src="assets/logos/LAG Black.png"
+            alt="LAGC Logo"
+            class="logo-img"
+          />
+        </a>
+
+        <div class="hidden md:flex space-x-10">
+          <a
+            href="index.html"
+            class="font-bold text-black uppercase tracking-wide hover:text-orange-500 transition"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide hover:text-orange-500 transition"
+            >About</a
+          >
+          <a
+            href="shop.html"
+            class="font-bold text-black uppercase tracking-wide hover:text-orange-500 transition"
+            >Shop</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide hover:text-orange-500 transition"
+            >Contact</a
+          >
+        </div>
+        <a
+          href="#"
+          class="hidden md:inline-flex items-center justify-center w-10 h-10 bg-black text-white rounded-full hover:bg-orange-500 transition"
+          title="Shopping Cart"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M7 4V3a1 1 0 011-1h8a1 1 0 011 1v1h4a1 1 0 110 2h-.941l1.856 11.736a2 2 0 01-1.965 2.261H5.05a2 2 0 01-1.965-2.26L4.941 6H4a1 1 0 110-2h3zm2 2h6V4H9v2z"
+            />
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="mt-28 mb-8">
+      <div class="container mx-auto px-8">
+        <div class="flex items-center space-x-2 text-sm text-gray-600">
+          <a href="shop.html" class="hover:text-orange-500 transition">Shop</a>
+          <span>/</span>
+          <span id="breadcrumb-category">Category</span>
+          <span>/</span>
+          <span id="breadcrumb-name" class="text-black font-semibold"
+            >Product</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Details Section -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          <!-- Product Image -->
+          <div class="flex items-center justify-center">
+            <div
+              class="relative w-full bg-gray-50 rounded-2xl overflow-hidden border border-gray-100"
+              style="aspect-ratio: 1"
+            >
+              <img
+                id="product-image"
+                src=""
+                alt="Product"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="flex flex-col justify-start">
+            <!-- Breadcrumb Category -->
+            <p
+              id="product-category"
+              class="text-orange-500 text-sm font-bold uppercase tracking-widest mb-4"
+            >
+              Category
+            </p>
+
+            <!-- Product Name -->
+            <h1
+              id="product-name"
+              class="text-5xl md:text-6xl font-factoria font-bold mb-6 leading-tight"
+            >
+              Product Name
+            </h1>
+
+            <!-- Rating (optional) -->
+            <div class="flex items-center gap-2 mb-6">
+              <div class="flex items-center gap-1">
+                <svg
+                  class="w-5 h-5 text-yellow-400"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-yellow-400"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-yellow-400"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-yellow-400"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-gray-300"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"
+                  />
+                </svg>
+              </div>
+              <span class="text-gray-600 text-sm">(128 reviews)</span>
+            </div>
+
+            <!-- Price -->
+            <div class="flex items-end gap-4 mb-6">
+              <p id="product-price" class="text-5xl font-bold">$89</p>
+              <p
+                id="product-original-price"
+                class="text-gray-400 line-through text-xl"
+              >
+                $119
+              </p>
+            </div>
+
+            <!-- Description -->
+            <p
+              id="product-description"
+              class="text-gray-700 text-lg mb-8 leading-relaxed"
+            >
+              Premium product description goes here.
+            </p>
+
+            <!-- Features -->
+            <div class="mb-8">
+              <h3 class="text-xl font-bold mb-4">Key Features</h3>
+              <ul id="product-features" class="space-y-3">
+                <li class="flex items-start gap-3">
+                  <svg
+                    class="w-5 h-5 text-orange-500 mt-1 flex-shrink-0"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M9 16.2L4.8 12m-1.5 1.5l9 9 12-12"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span class="text-gray-700">Feature 1</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Size/Variant Selection (Optional) -->
+            <div class="mb-8" id="size-section" style="display: none">
+              <h3 class="text-lg font-bold mb-4">Select Size</h3>
+              <div id="size-options" class="flex gap-3 flex-wrap">
+                <!-- Sizes will be populated dynamically -->
+              </div>
+            </div>
+
+            <!-- Color Selection (Optional) -->
+            <div class="mb-8" id="color-section" style="display: none">
+              <h3 class="text-lg font-bold mb-4">Select Color</h3>
+              <div id="color-options" class="flex gap-3 flex-wrap">
+                <!-- Colors will be populated dynamically -->
+              </div>
+            </div>
+
+            <!-- Quantity Selector -->
+            <div class="flex items-center gap-6 mb-8">
+              <div class="flex items-center border border-gray-300 rounded-lg">
+                <button
+                  id="qty-decrease"
+                  class="px-4 py-3 text-gray-600 hover:text-black transition"
+                >
+                  −
+                </button>
+                <input
+                  type="number"
+                  id="quantity"
+                  value="1"
+                  min="1"
+                  class="w-16 text-center border-l border-r border-gray-300 py-3"
+                  readonly
+                />
+                <button
+                  id="qty-increase"
+                  class="px-4 py-3 text-gray-600 hover:text-black transition"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <!-- Add to Cart Button -->
+            <div class="flex gap-4 mb-8">
+              <button
+                id="add-to-cart-btn"
+                class="flex-1 bg-black text-white font-bold py-4 rounded-lg hover:bg-orange-500 transition duration-300 text-lg"
+              >
+                Add to Cart
+              </button>
+              <button
+                id="add-to-favorites-btn"
+                class="px-6 py-4 bg-white border-2 border-black rounded-lg hover:bg-gray-100 transition"
+                title="Add to Favorites"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Shipping Info -->
+            <div class="border-t border-b border-gray-200 py-6 space-y-4">
+              <div class="flex items-start gap-4">
+                <svg
+                  class="w-6 h-6 text-orange-500 flex-shrink-0 mt-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9-4v4m0 0v4"
+                  />
+                </svg>
+                <div>
+                  <p class="font-bold text-black">Free Shipping</p>
+                  <p class="text-gray-600 text-sm">On orders over $50</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <svg
+                  class="w-6 h-6 text-orange-500 flex-shrink-0 mt-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <div>
+                  <p class="font-bold text-black">30-Day Returns</p>
+                  <p class="text-gray-600 text-sm">
+                    Hassle-free returns & exchanges
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-8">
+        <div class="mb-12">
+          <h2 class="text-4xl md:text-5xl font-factoria font-bold mb-3">
+            You May Also Like
+          </h2>
+          <div class="w-16 h-1 bg-orange-500 rounded-full"></div>
+        </div>
+        <div
+          id="related-products"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+        >
+          <!-- Related products will be populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 mt-20">
+      <div class="container mx-auto px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <h4 class="font-bold text-lg mb-4">About LAGC</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Love All Girls Club is a women-only tennis community dedicated to
+              empowering girls through sports.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg mb-4">Shop</h4>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li>
+                <a href="#" class="hover:text-orange-500 transition"
+                  >Women's Apparel</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-orange-500 transition"
+                  >Tennis Shoes</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-orange-500 transition"
+                  >Accessories</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg mb-4">Support</h4>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li>
+                <a href="#" class="hover:text-orange-500 transition"
+                  >Help Center</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-orange-500 transition"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-orange-500 transition"
+                  >Shipping Info</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg mb-4">Follow Us</h4>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="text-orange-500 hover:text-orange-400 transition"
+                >Instagram</a
+              >
+              <a
+                href="#"
+                class="text-orange-500 hover:text-orange-400 transition"
+                >Twitter</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm"
+        >
+          <p>&copy; 2025 Love All Girls Club. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="javascript/script.js"></script>
+    <script>
+      // Product database with all products from shop.html
+      const productDatabase = {
+        "performance-tennis-shirt": {
+          id: "performance-tennis-shirt",
+          name: "Performance Tennis Shirt",
+          category: "Women's Apparel",
+          price: 89,
+          originalPrice: 119,
+          image: "assets/merch/shop/performance-tennis-shirt.png",
+          description:
+            "Experience ultimate comfort and performance with our premium Performance Tennis Shirt. Engineered for serious players who demand the best.",
+          features: [
+            "Breathable moisture-wicking fabric",
+            "Premium comfort for extended play",
+            "Flatlock seams prevent chafing",
+            "Anatomical fit design",
+            "Available in multiple colors",
+            "Machine washable",
+          ],
+          sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+          colors: ["White", "Black", "Navy", "Orange"],
+          isNew: true,
+          rating: 4.8,
+          reviews: 128,
+        },
+        "court-shorts": {
+          id: "court-shorts",
+          name: "Court Shorts",
+          category: "Women's Apparel",
+          price: 75,
+          originalPrice: 100,
+          image: "assets/merch/shop/court-short.png",
+          description:
+            "Designed for maximum mobility and comfort on the court. Built-in compression support keeps you feeling confident during intense matches.",
+          features: [
+            "Built-in compression shorts",
+            "Quick-dry technology",
+            "Lightweight design",
+            "Hidden pockets for storage",
+            "4-way stretch fabric",
+            "UPF 50+ sun protection",
+          ],
+          sizes: ["XS", "S", "M", "L", "XL"],
+          colors: ["Black", "White", "Navy", "Pink"],
+          isNew: false,
+          rating: 4.7,
+          reviews: 95,
+        },
+        "tennis-tank-top": {
+          id: "tennis-tank-top",
+          name: "Tennis Tank Top",
+          category: "Women's Apparel",
+          price: 65,
+          originalPrice: null,
+          image: "assets/merch/shop/tennis-tank.png",
+          description:
+            "Stay cool and comfortable with our premium Tennis Tank Top. Perfect for warm weather matches and training sessions.",
+          features: [
+            "Lightweight breathable mesh",
+            "UV protection for sun safety",
+            "Moisture-wicking technology",
+            "Racerback design",
+            "Available in vibrant colors",
+            "Durable construction",
+          ],
+          sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+          colors: ["White", "Black", "Coral", "Lime"],
+          isNew: false,
+          rating: 4.6,
+          reviews: 87,
+        },
+        "court-pro-tennis-shoe": {
+          id: "court-pro-tennis-shoe",
+          name: "Court Pro Tennis Shoe",
+          category: "Women's Tennis Shoes",
+          price: 159,
+          originalPrice: 199,
+          image: "assets/merch/shop/court-pro.png",
+          description:
+            "The ultimate tennis shoe for competitive players. Superior stability, responsive cushioning, and exceptional traction on all court surfaces.",
+          features: [
+            "Advanced cushioning system",
+            "Reinforced ankle support",
+            "All-court traction pattern",
+            "Breathable mesh upper",
+            "Lightweight construction",
+            "Durable rubber outsole",
+          ],
+          sizes: ["5", "6", "7", "8", "9", "10", "11"],
+          colors: ["White/Orange", "Black/White", "Navy/Blue"],
+          isNew: false,
+          rating: 4.9,
+          reviews: 234,
+        },
+        "agile-court-shoe": {
+          id: "agile-court-shoe",
+          name: "Agile Court Shoe",
+          category: "Women's Tennis Shoes",
+          price: 129,
+          originalPrice: 169,
+          image: "assets/merch/shop/agile-court.png",
+          description:
+            "Lightweight and responsive, the Agile Court Shoe is perfect for quick movements and explosive plays. Great for all skill levels.",
+          features: [
+            "Lightweight responsive sole",
+            "Flexible architecture",
+            "Enhanced lateral support",
+            "Breathable upper material",
+            "Energy return technology",
+            "Long-lasting durability",
+          ],
+          sizes: ["5", "6", "7", "8", "9", "10", "11"],
+          colors: ["White", "Pink/White", "Navy"],
+          isNew: false,
+          rating: 4.5,
+          reviews: 156,
+        },
+        "power-court-shoe": {
+          id: "power-court-shoe",
+          name: "Power Court Shoe",
+          category: "Women's Tennis Shoes",
+          price: 145,
+          originalPrice: 189,
+          image: "assets/merch/shop/power-court.png",
+          description:
+            "Built for power players. Maximum stability and support for competitive matches where performance is non-negotiable.",
+          features: [
+            "Reinforced arch support",
+            "Stable heel structure",
+            "Enhanced court grip",
+            "Premium cushioning",
+            "Ventilation channels",
+            "Professional-grade materials",
+          ],
+          sizes: ["5", "6", "7", "8", "9", "10", "11"],
+          colors: ["Black/Orange", "White/Purple", "Navy/Gray"],
+          isNew: false,
+          rating: 4.7,
+          reviews: 198,
+        },
+        "tennis-grip-tape": {
+          id: "tennis-grip-tape",
+          name: "Premium Tennis Grip Tape",
+          category: "Accessories",
+          price: 12,
+          originalPrice: null,
+          image: "assets/merch/shop/grip-tape.png",
+          description:
+            "Professional-grade grip tape that provides superior comfort and control during play. Durable and long-lasting.",
+          features: [
+            "Non-slip surface",
+            "Moisture-absorbent material",
+            "Easy to apply",
+            "Professional quality",
+            "6-pack per box",
+            "Comfortable tacky feel",
+          ],
+          sizes: null,
+          colors: null,
+          isNew: false,
+          rating: 4.8,
+          reviews: 312,
+        },
+        "tennis-wristband": {
+          id: "tennis-wristband",
+          name: "Tennis Wristband Set",
+          category: "Accessories",
+          price: 18,
+          originalPrice: 25,
+          image: "assets/merch/shop/wristband.png",
+          description:
+            "Comfortable and stylish wristbands to keep sweat away during intense matches. Set of 2 pairs in complementary colors.",
+          features: [
+            "Moisture-wicking material",
+            "Elastic comfortable fit",
+            "Set of 2 pairs",
+            "Multiple color options",
+            "Durable stitching",
+            "One size fits all",
+          ],
+          sizes: null,
+          colors: ["Black/White", "Orange/White", "Pink/White"],
+          isNew: false,
+          rating: 4.6,
+          reviews: 89,
+        },
+        "tennis-ball-caddy": {
+          id: "tennis-ball-caddy",
+          name: "Tennis Ball Caddy",
+          category: "Accessories",
+          price: 35,
+          originalPrice: null,
+          image: "assets/merch/shop/ball-caddy.png",
+          description:
+            "Keep your tennis balls organized with our premium caddy. Pressurized storage maintains ball performance for longer.",
+          features: [
+            "Pressurized storage",
+            "Holds 3-4 tennis balls",
+            "Durable polycarbonate shell",
+            "Easy-open design",
+            "Portable keychain",
+            "Long-lasting protection",
+          ],
+          sizes: null,
+          colors: ["Black", "Orange", "White"],
+          isNew: true,
+          rating: 4.7,
+          reviews: 156,
+        },
+      };
+
+      // Get product ID from URL query parameter
+      function getProductFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id");
+      }
+
+      // Load and display product details
+      function loadProduct() {
+        const productId = getProductFromURL();
+        const product = productDatabase[productId];
+
+        if (!product) {
+          document.body.innerHTML =
+            '<div class="flex items-center justify-center h-screen"><h1>Product not found</h1></div>';
+          return;
+        }
+
+        // Update breadcrumb
+        document.getElementById("breadcrumb-category").textContent =
+          product.category;
+        document.getElementById("breadcrumb-name").textContent = product.name;
+
+        // Update product details
+        document.getElementById("product-category").textContent =
+          product.category;
+        document.getElementById("product-name").textContent = product.name;
+        document.getElementById("product-image").src = product.image;
+        document.getElementById("product-image").alt = product.name;
+        document.getElementById(
+          "product-price"
+        ).textContent = `$${product.price}`;
+        document.getElementById("product-description").textContent =
+          product.description;
+
+        // Update original price or hide it
+        const originalPriceEl = document.getElementById(
+          "product-original-price"
+        );
+        if (product.originalPrice) {
+          originalPriceEl.textContent = `$${product.originalPrice}`;
+          originalPriceEl.style.display = "block";
+        } else {
+          originalPriceEl.style.display = "none";
+        }
+
+        // Populate features
+        const featuresContainer = document.getElementById("product-features");
+        featuresContainer.innerHTML = product.features
+          .map(
+            (feature) => `
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-orange-500 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M9 16.2L4.8 12m-1.5 1.5l9 9 12-12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="text-gray-700">${feature}</span>
+          </li>
+        `
+          )
+          .join("");
+
+        // Show size section if sizes exist
+        if (product.sizes) {
+          document.getElementById("size-section").style.display = "block";
+          const sizeOptions = document.getElementById("size-options");
+          sizeOptions.innerHTML = product.sizes
+            .map(
+              (size) => `
+            <button class="px-4 py-3 border-2 border-gray-300 rounded-lg hover:border-orange-500 transition font-semibold">
+              ${size}
+            </button>
+          `
+            )
+            .join("");
+        }
+
+        // Show color section if colors exist
+        if (product.colors) {
+          document.getElementById("color-section").style.display = "block";
+          const colorOptions = document.getElementById("color-options");
+          colorOptions.innerHTML = product.colors
+            .map(
+              (color) => `
+            <button class="px-4 py-3 border-2 border-gray-300 rounded-lg hover:border-orange-500 transition font-semibold">
+              ${color}
+            </button>
+          `
+            )
+            .join("");
+        }
+
+        // Update page title
+        document.title = `${product.name} - Love All Girls Club`;
+
+        // Load related products
+        loadRelatedProducts(productId);
+
+        // Attach event listeners
+        attachEventListeners();
+      }
+
+      // Load related products (exclude current product)
+      function loadRelatedProducts(currentProductId) {
+        const relatedContainer = document.getElementById("related-products");
+        const products = Object.values(productDatabase).filter(
+          (p) => p.id !== currentProductId
+        );
+
+        // Shuffle and limit to 3 products
+        const shuffled = products.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+        relatedContainer.innerHTML = shuffled
+          .map(
+            (product) => `
+          <div class="group">
+            <a href="product.html?id=${product.id}" class="block">
+              <div class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300">
+                <img
+                  src="${product.image}"
+                  alt="${product.name}"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                ${
+                  product.isNew
+                    ? '<div class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">NEW</div>'
+                    : ""
+                }
+              </div>
+            </a>
+            <a href="product.html?id=${product.id}" class="block">
+              <h4 class="font-factoria font-bold text-lg group-hover:text-orange-500 transition">
+                ${product.name}
+              </h4>
+            </a>
+            <div class="flex items-end gap-2 pt-2">
+              <p class="text-2xl font-bold">$${product.price}</p>
+              ${
+                product.originalPrice
+                  ? `<p class="text-gray-400 line-through text-sm">$${product.originalPrice}</p>`
+                  : ""
+              }
+            </div>
+          </div>
+        `
+          )
+          .join("");
+      }
+
+      // Attach event listeners for quantity selector and buttons
+      function attachEventListeners() {
+        const qtyDecrease = document.getElementById("qty-decrease");
+        const qtyIncrease = document.getElementById("qty-increase");
+        const quantityInput = document.getElementById("quantity");
+        const addToCartBtn = document.getElementById("add-to-cart-btn");
+        const addToFavBtn = document.getElementById("add-to-favorites-btn");
+
+        qtyDecrease.addEventListener("click", () => {
+          let qty = parseInt(quantityInput.value);
+          if (qty > 1) {
+            quantityInput.value = qty - 1;
+          }
+        });
+
+        qtyIncrease.addEventListener("click", () => {
+          let qty = parseInt(quantityInput.value);
+          quantityInput.value = qty + 1;
+        });
+
+        addToCartBtn.addEventListener("click", () => {
+          const quantity = parseInt(quantityInput.value);
+          alert(`Added ${quantity} item(s) to cart!`);
+          // Here you'd typically call a function to add the item to the cart
+        });
+
+        addToFavBtn.addEventListener("click", () => {
+          addToFavBtn.classList.toggle("bg-orange-500");
+          addToFavBtn.classList.toggle("text-white");
+          addToFavBtn.classList.toggle("border-orange-500");
+        });
+
+        // Size selection
+        const sizeButtons = document.querySelectorAll("#size-options button");
+        sizeButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            sizeButtons.forEach((b) =>
+              b.classList.remove("border-orange-500", "bg-orange-50")
+            );
+            btn.classList.add("border-orange-500", "bg-orange-50");
+          });
+        });
+
+        // Color selection
+        const colorButtons = document.querySelectorAll("#color-options button");
+        colorButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            colorButtons.forEach((b) =>
+              b.classList.remove("border-orange-500", "bg-orange-50")
+            );
+            btn.classList.add("border-orange-500", "bg-orange-50");
+          });
+        });
+      }
+
+      // Load product on page load
+      window.addEventListener("DOMContentLoaded", loadProduct);
+    </script>
+  </body>
+</html>

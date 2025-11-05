@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Love All Girls Club - Shop premium women's tennis gear, apparel, and accessories."
+    />
+    <title>Shop - Love All Girls Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="font-sans bg-white">
+    <!-- Top Utility Bar -->
+    <div class="w-full bg-black text-white text-sm py-2">
+      <div class="container mx-auto px-8 flex justify-end space-x-6">
+        <a href="#" class="hover:text-orange-500">Help</a>
+        <a href="#" class="hover:text-orange-500">Book a Session</a>
+        <a href="#" class="hover:text-orange-500">Join Us</a>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav
+      id="site-nav"
+      class="fixed w-full bg-white z-10 border-b border-gray-100 mt-8"
+    >
+      <div
+        class="container mx-auto px-9 py-5 flex justify-between items-center"
+      >
+        <a href="index.html">
+          <img
+            src="assets/logos/LAG Black.png"
+            alt="LAGC Logo"
+            class="logo-img"
+          />
+        </a>
+
+        <div class="hidden md:flex space-x-10">
+          <a
+            href="index.html"
+            class="font-bold text-black uppercase tracking-wide hover:text-orange-500 transition"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide hover:text-orange-500 transition"
+            >About</a
+          >
+          <a
+            href="shop.html"
+            class="font-bold text-black uppercase tracking-wide hover:text-orange-500 transition"
+            >Shop</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide hover:text-orange-500 transition"
+            >Contact</a
+          >
+        </div>
+        <a
+          href="#"
+          class="hidden md:inline-flex items-center justify-center w-10 h-10 bg-black text-white rounded-full hover:bg-orange-500 transition"
+          title="Shopping Cart"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M7 4V3a1 1 0 011-1h8a1 1 0 011 1v1h4a1 1 0 110 2h-.941l1.856 11.736a2 2 0 01-1.965 2.261H5.05a2 2 0 01-1.965-2.26L4.941 6H4a1 1 0 110-2h3zm2 2h6V4H9v2z"
+            />
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative mt-20 overflow-hidden">
+      <!-- Gradient background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-orange-900 opacity-95"
+      ></div>
+
+      <!-- Animated backdrop element -->
+      <div
+        class="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"
+      ></div>
+
+      <div class="relative container mx-auto px-8 py-20 md:py-32 text-white">
+        <div class="max-w-3xl">
+          <p
+            class="text-orange-400 text-sm font-bold uppercase tracking-widest mb-4"
+          >
+            New Collection
+          </p>
+          <h1
+            class="text-6xl md:text-7xl font-factoria font-bold mb-6 leading-tight"
+          >
+            Engineered for<br />
+            <span class="text-orange-400">Peak Performance</span>
+          </h1>
+          <p class="text-xl text-gray-200 max-w-2xl mb-8 leading-relaxed">
+            Premium tennis gear crafted for athletes who demand excellence.
+            Engineered with cutting-edge materials for comfort, durability, and
+            style.
+          </p>
+          <div class="flex gap-4">
+            <button
+              class="px-8 py-4 bg-orange-500 text-white font-bold uppercase tracking-wide rounded hover:bg-orange-600 transition transform hover:scale-105"
+            >
+              Explore Now
+            </button>
+            <button
+              class="px-8 py-4 border-2 border-white text-white font-bold uppercase tracking-wide rounded hover:bg-white hover:text-black transition"
+            >
+              View Lookbook
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Section - Modern Tabs -->
+    <section class="sticky top-20 bg-white border-b border-gray-200 z-5">
+      <div class="container mx-auto px-8">
+        <div class="flex overflow-x-auto gap-8 py-6">
+          <button
+            class="pb-3 border-b-2 border-orange-500 font-bold uppercase tracking-wide text-sm whitespace-nowrap"
+          >
+            All
+          </button>
+          <button
+            class="pb-3 border-b-2 border-transparent text-gray-600 font-bold uppercase tracking-wide text-sm whitespace-nowrap hover:text-black transition"
+          >
+            Apparel
+          </button>
+          <button
+            class="pb-3 border-b-2 border-transparent text-gray-600 font-bold uppercase tracking-wide text-sm whitespace-nowrap hover:text-black transition"
+          >
+            Shoes
+          </button>
+          <button
+            class="pb-3 border-b-2 border-transparent text-gray-600 font-bold uppercase tracking-wide text-sm whitespace-nowrap hover:text-black transition"
+          >
+            Accessories
+          </button>
+          <button
+            class="pb-3 border-b-2 border-transparent text-gray-600 font-bold uppercase tracking-wide text-sm whitespace-nowrap hover:text-black transition"
+          >
+            Equipment
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-8">
+        <!-- APPAREL SECTION -->
+        <div class="mb-24">
+          <div class="mb-12">
+            <h3 class="text-4xl md:text-5xl font-factoria font-bold mb-3">
+              Women's Apparel
+            </h3>
+            <div class="w-16 h-1 bg-orange-500 rounded-full"></div>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+          >
+            <!-- Product 1 -->
+            <a
+              href="product.html?id=performance-tennis-shirt"
+              class="group block"
+            >
+              <div
+                class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src="assets/merch/shop/performance-tennis-shirt.png"
+                  alt="Performance Tennis Shirt"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                <div
+                  class="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold"
+                >
+                  NEW
+                </div>
+                <!-- Favorite Button - Top Right -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute top-4 right-16 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100"
+                  title="Add to Favorites"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Add to Cart Button - Center -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute inset-0 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100 m-auto"
+                  title="Add to Cart"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 5v14m7-7H5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="space-y-2">
+                <h4
+                  class="font-factoria font-bold text-lg group-hover:text-orange-500 transition"
+                >
+                  Performance Tennis Shirt
+                </h4>
+                <p class="text-gray-500 text-sm font-medium">
+                  Breathable • Moisture-wicking • Premium comfort
+                </p>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$89</p>
+                  <p class="text-gray-400 line-through text-sm">$119</p>
+                </div>
+              </div>
+            </a>
+
+            <!-- Product 2 -->
+            <a href="product.html?id=court-shorts" class="group block">
+              <div
+                class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src="assets/merch/shop/court-short.png"
+                  alt="Court Shorts"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                <!-- Favorite Button - Top Right -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute top-4 right-16 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100"
+                  title="Add to Favorites"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Add to Cart Button - Center -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute inset-0 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100 m-auto"
+                  title="Add to Cart"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 5v14m7-7H5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="space-y-2">
+                <h4
+                  class="font-factoria font-bold text-lg group-hover:text-orange-500 transition"
+                >
+                  Court Shorts
+                </h4>
+                <p class="text-gray-500 text-sm font-medium">
+                  Built-in compression • Quick-dry • Lightweight
+                </p>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$75</p>
+                  <p class="text-gray-400 line-through text-sm">$100</p>
+                </div>
+              </div>
+            </a>
+
+            <!-- Product 3 -->
+            <a href="product.html?id=tennis-tank-top" class="group block">
+              <div
+                class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src="assets/merch/shop/tennis-tank.png"
+                  alt="Tennis Tank Top"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                <!-- Favorite Button - Top Right -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100"
+                  title="Add to Favorites"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Add to Cart Button - Center -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute inset-0 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100 m-auto"
+                  title="Add to Cart"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 5v14m7-7H5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="space-y-2">
+                <h4
+                  class="font-factoria font-bold text-lg group-hover:text-orange-500 transition"
+                >
+                  Tennis Tank Top
+                </h4>
+                <p class="text-gray-500 text-sm font-medium">
+                  Lightweight • UV protection • Breathable mesh
+                </p>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$65</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- SHOES SECTION -->
+        <div class="mb-24">
+          <div class="mb-12">
+            <h3 class="text-4xl md:text-5xl font-factoria font-bold mb-3">
+              Women's Tennis Shoes
+            </h3>
+            <div class="w-16 h-1 bg-orange-500 rounded-full"></div>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+          >
+            <!-- Shoe 1 -->
+            <a href="product.html?id=court-pro-tennis-shoe" class="group block">
+              <div
+                class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src="assets/imgs/store-placeholder-4.jpg"
+                  alt="Court Pro Tennis Shoe"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                <!-- Favorite Button - Top Right -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute top-4 right-32 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100"
+                  title="Add to Favorites"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Add to Cart Button - Center -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute inset-0 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100 m-auto"
+                  title="Add to Cart"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 5v14m7-7H5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="space-y-2">
+                <h4
+                  class="font-factoria font-bold text-lg group-hover:text-orange-500 transition"
+                >
+                  Court Pro Tennis Shoe
+                </h4>
+                <p class="text-gray-500 text-sm font-medium">
+                  Responsive cushioning • Lateral support • Lightweight
+                </p>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$160</p>
+                </div>
+              </div>
+            </a>
+
+            <!-- Shoe 2 -->
+            <a href="product.html?id=agile-court-shoe" class="group block">
+              <div
+                class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src="assets/imgs/store-placeholder-1.jpg"
+                  alt="Elite Court Shoe"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                <!-- Favorite Button - Top Right -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100"
+                  title="Add to Favorites"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Add to Cart Button - Center -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute inset-0 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100 m-auto"
+                  title="Add to Cart"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 5v14m7-7H5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="space-y-2">
+                <h4
+                  class="font-factoria font-bold text-lg group-hover:text-orange-500 transition"
+                >
+                  Elite Court Shoe
+                </h4>
+                <p class="text-gray-500 text-sm font-medium">
+                  Professional grade • Durable • Enhanced traction
+                </p>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$185</p>
+                </div>
+              </div>
+            </a>
+
+            <!-- Shoe 3 -->
+            <a href="product.html?id=power-court-shoe" class="group block">
+              <div
+                class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src="assets/imgs/store-placeholder-2.jpg"
+                  alt="Performance Court Shoe"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                <!-- Favorite Button - Top Right -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100"
+                  title="Add to Favorites"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Add to Cart Button - Center -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); event.preventDefault();"
+                  class="absolute inset-0 w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100 m-auto"
+                  title="Add to Cart"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 5v14m7-7H5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="space-y-2">
+                <h4
+                  class="font-factoria font-bold text-lg group-hover:text-orange-500 transition"
+                >
+                  Performance Court Shoe
+                </h4>
+                <p class="text-gray-500 text-sm font-medium">
+                  Lightweight design • Arch support • Flexible sole
+                </p>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$145</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- ACCESSORIES SECTION -->
+        <div class="mb-24">
+          <div class="mb-12">
+            <h3 class="text-4xl md:text-5xl font-factoria font-bold mb-3">
+              Accessories & Gear
+            </h3>
+            <div class="w-16 h-1 bg-orange-500 rounded-full"></div>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+          >
+            <!-- Accessory 1 -->
+            <a href="product.html?id=tennis-grip-tape" class="group">
+              <div
+                class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src="assets/imgs/store-placeholder-3.jpg"
+                  alt="Performance Socks"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                <!-- Favorite Button - Top Right -->
+                <button
+                  onclick="event.preventDefault()"
+                  class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100"
+                  title="Add to Favorites"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Add to Cart Button - Center -->
+                <div
+                  class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+                  onclick="event.preventDefault()"
+                >
+                  <button
+                    class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition transform hover:scale-110 shadow-lg"
+                    title="Add to Cart"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 5v14m7-7H5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h4
+                  class="font-factoria font-bold text-lg group-hover:text-orange-500 transition"
+                >
+                  Performance Socks (Pack of 3)
+                </h4>
+                <p class="text-gray-500 text-sm font-medium">
+                  Moisture-wicking • Arch support • Comfortable fit
+                </p>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$35</p>
+                </div>
+              </div>
+            </a>
+
+            <!-- Accessory 2 -->
+            <a href="product.html?id=tennis-wristband" class="group">
+              <div
+                class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src="assets/imgs/store-placeholder-4.jpg"
+                  alt="Tennis Headband"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                <!-- Favorite Button - Top Right -->
+                <button
+                  onclick="event.preventDefault()"
+                  class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100"
+                  title="Add to Favorites"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Add to Cart Button - Center -->
+                <div
+                  class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+                  onclick="event.preventDefault()"
+                >
+                  <button
+                    class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition transform hover:scale-110 shadow-lg"
+                    title="Add to Cart"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 5v14m7-7H5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h4
+                  class="font-factoria font-bold text-lg group-hover:text-orange-500 transition"
+                >
+                  Tennis Headband
+                </h4>
+                <p class="text-gray-500 text-sm font-medium">
+                  Sweat-resistant • Adjustable fit • Stylish design
+                </p>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$22</p>
+                </div>
+              </div>
+            </a>
+
+            <!-- Accessory 3 -->
+            <a href="product.html?id=tennis-ball-caddy" class="group">
+              <div
+                class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src="assets/imgs/store-placeholder-1.jpg"
+                  alt="Tennis Racket Bag"
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                />
+                <!-- Favorite Button - Top Right -->
+                <button
+                  onclick="event.preventDefault()"
+                  class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-orange-500 hover:text-white transition transform hover:scale-110 shadow-lg opacity-0 group-hover:opacity-100"
+                  title="Add to Favorites"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Add to Cart Button - Center -->
+                <div
+                  class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+                >
+                  <button
+                    class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition transform hover:scale-110 shadow-lg"
+                    title="Add to Cart"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 5v14m7-7H5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <h4
+                  class="font-factoria font-bold text-lg group-hover:text-orange-500 transition"
+                >
+                  Tennis Racket Bag
+                </h4>
+                <p class="text-gray-500 text-sm font-medium">
+                  Holds 2 rackets • Thermal protection • Durable
+                </p>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$125</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-100 mt-16 py-12 bg-gray-50">
+      <div class="container mx-auto px-8 text-center">
+        <div
+          class="flex flex-col md:flex-row items-center justify-center gap-6 text-sm text-gray-600 uppercase tracking-wide mb-6"
+        >
+          <span>Free Shipping on Orders $50+</span>
+          <span class="hidden md:inline-block">|</span>
+          <span>30-Day Returns</span>
+          <span class="hidden md:inline-block">|</span>
+          <span>Shop with Confidence</span>
+        </div>
+
+        <!-- Three-stripe motif -->
+        <div class="flex justify-center mb-6">
+          <span class="block w-16 h-1 bg-black rounded-sm mx-1"></span>
+          <span class="block w-16 h-1 bg-black rounded-sm mx-1"></span>
+          <span class="block w-16 h-1 bg-black rounded-sm mx-1"></span>
+        </div>
+
+        <!-- Centered logo -->
+        <div class="flex justify-center">
+          <img src="assets/logos/LAG Black.png" alt="LAG Logo" class="h-14" />
+        </div>
+
+        <p class="text-gray-600 text-xs mt-6">
+          © 2025 Love All Girls Club. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script src="javascript/script.js"></script>
+  </body>
+</html>

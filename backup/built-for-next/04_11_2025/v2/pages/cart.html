@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Love All Girls Club - Shopping Cart" />
+    <title>Cart - Love All Girls Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="font-sans bg-white">
+    <!-- Top Utility Bar -->
+    <div class="w-full bg-black text-white text-sm py-2">
+      <div class="container mx-auto px-8 flex justify-end space-x-6">
+        <a href="#" class="hover:text-orange-500">Help</a>
+        <a href="#" class="hover:text-orange-500">Book a Session</a>
+        <a href="#" class="hover:text-orange-500">Join Us</a>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav
+      id="site-nav"
+      class="fixed top-0 w-full bg-white z-50 border-b border-gray-100"
+    >
+      <div
+        class="container mx-auto px-4 sm:px-9 py-4 flex justify-between items-center"
+      >
+        <a href="index.html">
+          <img
+            src="../assets/logos/LAG Black.png"
+            alt="LAGC Logo"
+            class="logo-img h-8 sm:h-10"
+          />
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex space-x-10 items-center">
+          <a
+            href="index.html"
+            class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
+            >About</a
+          >
+          <a
+            href="shop.html"
+            class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
+            >Shop</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
+            >Contact</a
+          >
+          <a
+            href="cart.html"
+            class="relative inline-flex items-center justify-center p-2"
+            title="Shopping Cart"
+          >
+            <svg
+              class="w-6 h-6 text-black"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7 4V3a1 1 0 011-1h8a1 1 0 011 1v1h4a1 1 0 110 2h-.941l1.856 11.736a2 2 0 01-1.965 2.261H5.05a2 2 0 01-1.965-2.26L4.941 6H4a1 1 0 110-2h3zm2 2h6V4H9v2z"
+              />
+            </svg>
+            <!-- Cart counter badge - Modern style -->
+            <span
+              id="cart-count"
+              class="absolute -top-1 -right-1 min-w-[22px] h-5 px-1.5 bg-gray-800 text-xs font-bold rounded-full flex items-center justify-center shadow-lg"
+              style="
+                display: none;
+                font-size: 11px;
+                line-height: 1.2;
+                color: white !important;
+              "
+            ></span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden flex flex-col space-y-1.5 p-2"
+          aria-label="Toggle menu"
+        >
+          <span class="block w-6 h-0.5 bg-black transition-transform"></span>
+          <span class="block w-6 h-0.5 bg-black transition-transform"></span>
+          <span class="block w-6 h-0.5 bg-black transition-transform"></span>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Menu -->
+      <div
+        id="mobile-menu"
+        class="md:hidden bg-white border-t border-gray-100 max-h-0 overflow-hidden transition-all duration-300"
+      >
+        <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+          <a
+            href="index.html"
+            class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
+            >About</a
+          >
+          <a
+            href="shop.html"
+            class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
+            >Shop</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
+            >Contact</a
+          >
+          <a
+            href="cart.html"
+            class="block w-full px-6 py-3 bg-black text-white text-center rounded-full font-bold uppercase tracking-wide text-sm hover:bg-orange-500 transition"
+            >Cart</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="mt-24 md:mt-20 mb-8 border-b border-gray-100">
+      <div class="container mx-auto px-4 sm:px-8">
+        <div class="flex items-center space-x-2 text-sm text-gray-600 py-4">
+          <a href="index.html" class="hover:text-orange-500 transition">Home</a>
+          <span>/</span>
+          <span class="text-black font-semibold">Shopping Cart</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Section -->
+    <section class="py-12 md:py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-8">
+        <!-- Page Title -->
+        <div class="mb-12">
+          <h1
+            class="text-3xl sm:text-4xl md:text-5xl font-factoria font-bold mb-3"
+          >
+            Shopping Cart
+          </h1>
+          <div class="w-16 h-1 bg-orange-500 rounded-full"></div>
+        </div>
+
+        <!-- Main Cart Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Cart Items (Left Side) -->
+          <div class="lg:col-span-2">
+            <!-- Empty Cart State -->
+            <div
+              id="empty-cart"
+              class="text-center py-16 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300"
+            >
+              <svg
+                class="w-20 h-20 mx-auto text-gray-300 mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                ></path>
+              </svg>
+              <p class="text-gray-500 text-lg font-medium mb-4">
+                Your cart is empty
+              </p>
+              <a
+                href="shop.html"
+                class="inline-block px-8 py-3 bg-black text-white font-bold uppercase tracking-wide rounded-full hover:bg-orange-500 transition"
+              >
+                Continue Shopping
+              </a>
+            </div>
+
+            <!-- Cart Items List -->
+            <div id="cart-items" class="space-y-4"></div>
+          </div>
+
+          <!-- Order Summary (Right Side) -->
+          <div class="lg:col-span-1">
+            <!-- Summary Card -->
+            <div
+              class="bg-gray-50 rounded-2xl p-6 md:p-8 sticky top-24 md:top-28 lg:top-32 border border-gray-200 overflow-visible"
+            >
+              <h3 class="text-xl font-bold mb-6">Order Summary</h3>
+
+              <!-- Summary Details -->
+              <div class="space-y-3 mb-6 pb-6 border-b border-gray-200">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-600">Subtotal</span>
+                  <span class="font-semibold" id="summary-subtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-600">Shipping</span>
+                  <span
+                    class="font-semibold text-orange-500"
+                    id="summary-shipping"
+                    >FREE</span
+                  >
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-600">Tax</span>
+                  <span class="font-semibold" id="summary-tax">$0.00</span>
+                </div>
+              </div>
+
+              <!-- Total -->
+              <div class="flex justify-between items-center mb-8">
+                <span class="text-lg font-bold">Total</span>
+                <span
+                  class="text-3xl font-bold text-orange-500"
+                  id="summary-total"
+                  >$0.00</span
+                >
+              </div>
+
+              <!-- Promo Code -->
+              <div class="mb-6">
+                <label class="block text-sm font-semibold mb-2"
+                  >Promo Code</label
+                >
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    id="promo-code"
+                    placeholder="Enter code"
+                    class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  />
+                  <button
+                    id="apply-promo"
+                    class="px-4 py-2 bg-black text-white font-semibold rounded-lg hover:bg-orange-500 transition"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </div>
+
+              <!-- Checkout Button -->
+              <button
+                id="checkout-btn"
+                class="w-full py-3 mb-3 bg-teal-600 text-white font-bold uppercase tracking-wide rounded-lg hover:bg-teal-700 transition transform hover:scale-105 !opacity-100"
+                style="
+                  display: block !important;
+                  visibility: visible !important;
+                  opacity: 1 !important;
+                  background-color: #0d9488 !important;
+                  color: white !important;
+                "
+              >
+                Proceed to Pay
+              </button>
+
+              <!-- Continue Shopping -->
+              <a
+                href="shop.html"
+                class="block text-center mt-4 py-2 text-black font-semibold border-2 border-gray-300 rounded-lg hover:border-orange-500 hover:text-orange-500 transition"
+              >
+                Continue Shopping
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 pt-16 border-t border-gray-200"
+        >
+          <div class="text-center">
+            <div class="text-4xl mb-3">🛒</div>
+            <p class="font-semibold">Free Shipping on Orders $50+</p>
+            <p class="text-sm text-gray-600">Fast delivery to your door</p>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl mb-3">↩️</div>
+            <p class="font-semibold">30-Day Returns</p>
+            <p class="text-sm text-gray-600">Shop with confidence</p>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl mb-3">🔒</div>
+            <p class="font-semibold">Secure Checkout</p>
+            <p class="text-sm text-gray-600">Safe and encrypted</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-100 mt-16 py-12 bg-gray-50">
+      <div class="container mx-auto px-8 text-center">
+        <div
+          class="flex flex-col md:flex-row items-center justify-center gap-6 text-sm text-gray-600 uppercase tracking-wide mb-6"
+        >
+          <span>Free Shipping on Orders $50+</span>
+          <span class="hidden md:inline-block">|</span>
+          <span>30-Day Returns</span>
+          <span class="hidden md:inline-block">|</span>
+          <span>Shop with Confidence</span>
+        </div>
+
+        <!-- Three-stripe motif -->
+        <div class="flex justify-center mb-6">
+          <span class="block w-16 h-1 bg-black rounded-sm mx-1"></span>
+          <span class="block w-16 h-1 bg-black rounded-sm mx-1"></span>
+          <span class="block w-16 h-1 bg-black rounded-sm mx-1"></span>
+        </div>
+
+        <!-- Centered logo -->
+        <div class="flex justify-center">
+          <img
+            src="../assets/logos/LAG Black.png"
+            alt="LAG Logo"
+            class="h-14"
+          />
+        </div>
+
+        <p class="text-gray-600 text-xs mt-6">
+          © 2025 Love All Girls Club. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script type="module" src="../javascript/main.js"></script>
+  </body>
+</html>

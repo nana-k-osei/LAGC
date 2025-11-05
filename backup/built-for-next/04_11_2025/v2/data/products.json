@@ -1,0 +1,58 @@
+{
+  "products": [
+    {
+      "id": "performance-tennis-shirt",
+      "name": "Performance Tennis Shirt",
+      "category": "apparel",
+      "price": 79.99,
+      "image": "assets/imgs/hero-1.jpg",
+      "description": "Moisture-wicking fabric for maximum comfort during intense play.",
+      "featured": true
+    },
+    {
+      "id": "pro-tennis-shoes",
+      "name": "Pro Tennis Shoes",
+      "category": "shoes",
+      "price": 149.99,
+      "image": "assets/imgs/about-1.jpg",
+      "description": "Advanced traction and ankle support for competitive players.",
+      "featured": true
+    },
+    {
+      "id": "tennis-racket",
+      "name": "Tennis Racket",
+      "category": "accessories",
+      "price": 299.99,
+      "image": "assets/imgs/about-2.jpg",
+      "description": "Lightweight graphite construction for superior control.",
+      "featured": true
+    },
+    {
+      "id": "air-force-1",
+      "name": "Air Force 1",
+      "category": "shoes",
+      "price": 89.99,
+      "image": "assets/imgs/hero-1.jpg",
+      "description": "Classic design with modern comfort technology.",
+      "featured": false
+    },
+    {
+      "id": "air-max",
+      "name": "Air Max",
+      "category": "shoes",
+      "price": 129.99,
+      "image": "assets/imgs/about-1.jpg",
+      "description": "Maximum cushioning and breathability.",
+      "featured": false
+    },
+    {
+      "id": "court-legacy",
+      "name": "Court Legacy",
+      "category": "shoes",
+      "price": 109.99,
+      "image": "assets/imgs/hero-3.jpg",
+      "description": "Heritage design with premium materials.",
+      "featured": false
+    }
+  ]
+}
