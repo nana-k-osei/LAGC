@@ -110,7 +110,7 @@ class ProductDetail {
     updateProductDetails(product) {
         const categoryEl = document.getElementById("product-category");
         const nameEl = document.getElementById("product-name");
-        const imageEl = document.getElementById("product-image");
+        const imageEl = document.getElementById("product-image-main");
         const priceEl = document.getElementById("product-price");
         const descEl = document.getElementById("product-description");
 
@@ -122,6 +122,9 @@ class ProductDetail {
         }
         if (priceEl) priceEl.textContent = `$${product.price}`;
         if (descEl) descEl.textContent = product.description;
+
+        // Initialize image gallery
+        this.initializeImageGallery(product);
     }
 
     /**
@@ -136,6 +139,97 @@ class ProductDetail {
             } else {
                 originalPriceEl.style.display = "none";
             }
+        }
+    }
+
+    /**
+     * Initialize image gallery with thumbnails
+     */
+    initializeImageGallery(product) {
+        const thumbnailsContainer = document.getElementById("product-thumbnails-container");
+        const mainImage = document.getElementById("product-image-main");
+
+        if (!thumbnailsContainer || !mainImage) return;
+
+        // Create 4 thumbnail variations using the same image as placeholder
+        const images = [
+            product.image,
+            product.image,
+            product.image,
+            product.image,
+        ];
+
+        let currentImageIndex = 0;
+
+        thumbnailsContainer.innerHTML = images
+            .map(
+                (img, index) => `
+            <button 
+                class="thumbnail-btn flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 border-2 rounded-lg overflow-hidden transition-all ${index === 0 ? "border-orange-500" : "border-gray-200"
+                    } hover:border-orange-500"
+                data-image="${img}"
+                data-index="${index}"
+            >
+                <img 
+                    src="${img}" 
+                    alt="Product view ${index + 1}"
+                    class="w-full h-full object-cover"
+                />
+            </button>
+        `
+            )
+            .join("");
+
+        // Add click handlers to thumbnails
+        const thumbnailBtns = document.querySelectorAll(".thumbnail-btn");
+        thumbnailBtns.forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                const index = parseInt(btn.getAttribute("data-index"));
+                this.switchImage(index, thumbnailBtns, mainImage, images);
+                currentImageIndex = index;
+            });
+        });
+
+        // Add navigation arrow handlers
+        const prevBtn = document.getElementById("gallery-prev");
+        const nextBtn = document.getElementById("gallery-next");
+
+        if (prevBtn) {
+            prevBtn.addEventListener("click", () => {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                this.switchImage(currentImageIndex, thumbnailBtns, mainImage, images);
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener("click", () => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                this.switchImage(currentImageIndex, thumbnailBtns, mainImage, images);
+            });
+        }
+    }
+
+    /**
+     * Switch to a specific image and update thumbnails
+     */
+    switchImage(index, thumbnailBtns, mainImage, images) {
+        mainImage.src = images[index];
+
+        // Update active border on thumbnail
+        thumbnailBtns.forEach((btn, i) => {
+            if (i === index) {
+                btn.classList.remove("border-gray-200");
+                btn.classList.add("border-orange-500");
+            } else {
+                btn.classList.remove("border-orange-500");
+                btn.classList.add("border-gray-200");
+            }
+        });
+
+        // Scroll thumbnail into view on mobile
+        const activeThumbnail = thumbnailBtns[index];
+        if (activeThumbnail) {
+            activeThumbnail.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
         }
     }
 
@@ -174,8 +268,9 @@ class ProductDetail {
         sizeOptions.innerHTML = product.sizes
             .map(
                 (size) => `
-            <button class="px-4 py-3 border-2 border-gray-300 rounded-lg hover:border-orange-500 transition font-semibold">
+            <button class="size-btn px-4 py-3 border-2 border-gray-300 rounded-lg hover:border-orange-500 transition font-semibold flex items-center justify-center min-w-16" data-size="${size}">
               ${size}
+              <span class="checkmark ml-2 hidden">✓</span>
             </button>
           `
             )
@@ -211,46 +306,95 @@ class ProductDetail {
         const relatedContainer = document.getElementById("related-products");
         if (!relatedContainer) return;
 
-        const products = Object.values(this.productDatabase).filter(
-            (p) => p.id !== currentProductId
-        );
+        // Define the three signature pieces
+        const signaturePieces = [
+            "performance-tennis-shirt",
+            "love-cap",
+            "tennis-tank-top",
+        ];
 
-        // Shuffle and limit to 3 products
-        const shuffled = products.sort(() => 0.5 - Math.random()).slice(0, 3);
+        // If current product is one of the signature pieces, show the other two
+        if (signaturePieces.includes(currentProductId)) {
+            const relatedIds = signaturePieces.filter((id) => id !== currentProductId);
+            const products = relatedIds
+                .map((id) => this.productDatabase[id])
+                .filter((p) => p);
 
-        relatedContainer.innerHTML = shuffled
-            .map(
-                (product) => `
-          <div class="group">
-            <a href="product.html?id=${product.id}" class="block">
-              <div class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300">
-                <img
-                  src="${product.image}"
-                  alt="${product.name}"
-                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                />
-                ${product.isNew
-                        ? '<div class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">NEW</div>'
-                        : ""
-                    }
+            relatedContainer.innerHTML = products
+                .map(
+                    (product) => `
+              <div class="group">
+                <a href="product.html?id=${product.id}" class="block">
+                  <div class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300">
+                    <img
+                      src="${product.image}"
+                      alt="${product.name}"
+                      class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                    />
+                    ${product.isNew
+                            ? '<div class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">NEW</div>'
+                            : ""
+                        }
+                  </div>
+                </a>
+                <a href="product.html?id=${product.id}" class="block">
+                  <h4 class="font-factoria font-bold text-lg group-hover:text-orange-500 transition">
+                    ${product.name}
+                  </h4>
+                </a>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$${product.price}</p>
+                  ${product.originalPrice
+                            ? `<p class="text-gray-400 line-through text-sm">$${product.originalPrice}</p>`
+                            : ""
+                        }
+                </div>
               </div>
-            </a>
-            <a href="product.html?id=${product.id}" class="block">
-              <h4 class="font-factoria font-bold text-lg group-hover:text-orange-500 transition">
-                ${product.name}
-              </h4>
-            </a>
-            <div class="flex items-end gap-2 pt-2">
-              <p class="text-2xl font-bold">$${product.price}</p>
-              ${product.originalPrice
-                        ? `<p class="text-gray-400 line-through text-sm">$${product.originalPrice}</p>`
-                        : ""
-                    }
-            </div>
-          </div>
-        `
-            )
-            .join("");
+            `
+                )
+                .join("");
+        } else {
+            // For non-signature pieces, show random products (fallback behavior)
+            const products = Object.values(this.productDatabase).filter(
+                (p) => p.id !== currentProductId
+            );
+
+            const shuffled = products.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+            relatedContainer.innerHTML = shuffled
+                .map(
+                    (product) => `
+              <div class="group">
+                <a href="product.html?id=${product.id}" class="block">
+                  <div class="relative bg-white aspect-square rounded-2xl overflow-hidden mb-6 border border-gray-100 hover:shadow-2xl transition duration-300">
+                    <img
+                      src="${product.image}"
+                      alt="${product.name}"
+                      class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                    />
+                    ${product.isNew
+                            ? '<div class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">NEW</div>'
+                            : ""
+                        }
+                  </div>
+                </a>
+                <a href="product.html?id=${product.id}" class="block">
+                  <h4 class="font-factoria font-bold text-lg group-hover:text-orange-500 transition">
+                    ${product.name}
+                  </h4>
+                </a>
+                <div class="flex items-end gap-2 pt-2">
+                  <p class="text-2xl font-bold">$${product.price}</p>
+                  ${product.originalPrice
+                            ? `<p class="text-gray-400 line-through text-sm">$${product.originalPrice}</p>`
+                            : ""
+                        }
+                </div>
+              </div>
+            `
+                )
+                .join("");
+        }
     }
 
     /**
@@ -339,23 +483,38 @@ class ProductDetail {
      * Size selection event listeners
      */
     attachSizeListeners() {
-        const sizeButtons = document.querySelectorAll("#size-options button");
+        const sizeButtons = document.querySelectorAll("#size-options .size-btn");
+
+        // Auto-select if only one size available
+        if (sizeButtons.length === 1) {
+            sizeButtons[0].classList.add("border-orange-500", "bg-orange-50");
+            sizeButtons[0].querySelector(".checkmark").classList.remove("hidden");
+            this.selectedSize = sizeButtons[0].textContent.trim();
+        }
+
         sizeButtons.forEach((btn) => {
             btn.addEventListener("click", () => {
-                sizeButtons.forEach((b) =>
-                    b.classList.remove("border-orange-500", "bg-orange-50")
-                );
+                sizeButtons.forEach((b) => {
+                    b.classList.remove("border-orange-500", "bg-orange-50");
+                    b.querySelector(".checkmark").classList.add("hidden");
+                });
                 btn.classList.add("border-orange-500", "bg-orange-50");
-                this.selectedSize = btn.textContent.trim();
+                btn.querySelector(".checkmark").classList.remove("hidden");
+                this.selectedSize = btn.getAttribute("data-size");
             });
         });
-    }
-
-    /**
+    }    /**
      * Color selection event listeners
      */
     attachColorListeners() {
         const colorButtons = document.querySelectorAll("#color-options button");
+
+        // Auto-select if only one color available
+        if (colorButtons.length === 1) {
+            colorButtons[0].classList.add("border-orange-500", "bg-orange-50");
+            this.selectedColor = colorButtons[0].dataset.color || colorButtons[0].textContent.trim();
+        }
+
         colorButtons.forEach((btn) => {
             btn.addEventListener("click", () => {
                 colorButtons.forEach((b) =>

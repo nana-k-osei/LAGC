@@ -333,6 +333,18 @@ section[class*="sticky"].nav-hidden {
   transform: translateY(0);
 }
 
+/* Fade-in only effect - no movement, just opacity */
+.scroll-reveal-reverse {
+  opacity: 0;
+  transform: none;
+  transition: opacity 1.2s ease;
+}
+
+.scroll-reveal-reverse.visible {
+  opacity: 1;
+  transform: none;
+}
+
 /* Inspiration Section */
 .inspiration-section {
   position: relative;

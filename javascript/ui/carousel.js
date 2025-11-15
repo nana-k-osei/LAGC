@@ -20,6 +20,7 @@ class Carousel {
     }
 
     init() {
+        this.updateDots();
         this.attachEventListeners();
         if (this.isAutoPlaying) {
             this.startAutoPlay();
@@ -40,14 +41,19 @@ class Carousel {
     }
 
     updateDots() {
-        const dots = document.querySelectorAll(".absolute.bottom-10 span");
+        const dotsContainer = document.querySelector(".absolute.bottom-10.flex");
+        if (!dotsContainer) return;
+
+        const dots = dotsContainer.querySelectorAll("span");
         dots.forEach((dot, i) => {
             if (i === this.currentSlide) {
                 dot.classList.add("bg-orange-500");
                 dot.classList.remove("bg-gray-300");
+                dot.style.backgroundColor = "#f97316"; // Orange-500 fallback
             } else {
                 dot.classList.add("bg-gray-300");
                 dot.classList.remove("bg-orange-500");
+                dot.style.backgroundColor = "#d1d5db"; // Gray-300 fallback
             }
         });
     }
@@ -66,10 +72,13 @@ class Carousel {
         }
 
         // Dot indicators
-        const dots = document.querySelectorAll(".absolute.bottom-10 span");
-        dots.forEach((dot, index) => {
-            dot.addEventListener("click", () => this.showSlide(index));
-        });
+        const dotsContainer = document.querySelector(".absolute.bottom-10.flex");
+        if (dotsContainer) {
+            const dots = dotsContainer.querySelectorAll("span");
+            dots.forEach((dot, index) => {
+                dot.addEventListener("click", () => this.showSlide(index));
+            });
+        }
     }
 
     startAutoPlay() {

@@ -56,14 +56,17 @@ class App {
                 this.updateCartCounterDisplay(cartCountMobileBadge, count);
             }
 
-            // Update counter when cart changes
+            // Update counter when cart changes - refetch elements to avoid stale references
             window.addEventListener("cartUpdated", () => {
                 const updatedCount = cart.getItemCount();
-                if (cartCountBadge) {
-                    this.updateCartCounterDisplay(cartCountBadge, updatedCount);
+                const badge = document.getElementById("cart-count");
+                const mobileBadge = document.getElementById("cart-count-mobile");
+
+                if (badge) {
+                    this.updateCartCounterDisplay(badge, updatedCount);
                 }
-                if (cartCountMobileBadge) {
-                    this.updateCartCounterDisplay(cartCountMobileBadge, updatedCount);
+                if (mobileBadge) {
+                    this.updateCartCounterDisplay(mobileBadge, updatedCount);
                 }
             });
         }
@@ -90,6 +93,12 @@ class App {
         const checkoutItemsContainer = document.getElementById("checkout-items");
         const shopProductCards = document.querySelectorAll('button[title="Add to Cart"]');
 
+        // Initialize ScrollReveal on ALL pages (not just homepage)
+        this.modules.scrollReveal = new ScrollReveal({
+            revealDelay: 500,
+            observerThreshold: 0.2,
+        });
+
         // Homepage/Index modules
         if (carouselElement) {
             this.modules.carousel = new Carousel({
@@ -99,11 +108,6 @@ class App {
 
             this.modules.storeCarousel = new StoreCarousel({
                 cardWidth: 340,
-            });
-
-            this.modules.scrollReveal = new ScrollReveal({
-                revealDelay: 500,
-                observerThreshold: 0.2,
             });
         }
 

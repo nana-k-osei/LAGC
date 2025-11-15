@@ -69,8 +69,8 @@ class ScrollReveal {
             }
         );
 
-        // Observe all scroll-reveal elements
-        document.querySelectorAll(".scroll-reveal").forEach((el) => {
+        // Observe all scroll-reveal elements (including reverse)
+        document.querySelectorAll(".scroll-reveal, .scroll-reveal-reverse").forEach((el) => {
             featureObserver.observe(el);
         });
     }

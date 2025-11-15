@@ -49,7 +49,7 @@
         <!-- Desktop Navigation -->
         <div class="hidden md:flex space-x-10 items-center">
           <a
-            href="#about-section"
+            href="#our-story"
             class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
             >About</a
           >
@@ -94,7 +94,7 @@
       >
         <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
           <a
-            href="#about-section-1"
+            href="#our-story"
             class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
             >About</a
           >
@@ -125,7 +125,7 @@
     <!-- Hero Section (Carousel) -->
     <section class="relative pt-16 sm:pt-20 md:pt-24">
       <div class="carousel w-full overflow-hidden">
-        <div class="carousel-inner flex transition-transform duration-700">
+        <div class="carousel-inner flex transition-transform duration-1000">
           <!-- Slide 1: Image -->
           <div class="carousel-item w-full flex-shrink-0 relative">
             <img
@@ -418,6 +418,59 @@
       </div>
     </section>
 
+    <!-- Our Story Section -->
+    <section
+      id="our-story"
+      class="relative py-24 bg-gray-900 text-white overflow-hidden"
+    >
+      <!-- Background pattern/gradient -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800 opacity-90"
+      ></div>
+
+      <div class="relative container mx-auto px-8 text-center">
+        <div class="max-w-3xl mx-auto">
+          <!-- Logo placeholder -->
+          <div class="scroll-reveal-reverse mb-8" data-delay="0">
+            <img
+              src="/assets/logos/LAG White.png"
+              alt="LAGC Logo"
+              class="h-16 md:h-20 mx-auto opacity-90"
+            />
+          </div>
+
+          <h2
+            class="scroll-reveal text-4xl md:text-5xl font-bold uppercase mb-6 tracking-wide"
+            data-delay="200"
+          >
+            Our Story
+          </h2>
+          <p
+            class="scroll-reveal text-lg md:text-xl text-gray-300 mb-8 leading-relaxed"
+            data-delay="400"
+          >
+            Built by women, for women. Love All Girls Club is more than
+            tennis—it's a movement empowering female athletes to play, compete,
+            and thrive in a community that celebrates their strength, passion,
+            and potential.
+          </p>
+          <div class="scroll-reveal" data-delay="600">
+            <a
+              href="/pages/about-us.html"
+              class="inline-block px-10 py-4 bg-white text-black text-lg font-bold rounded-full uppercase tracking-wide hover:bg-teal-500 hover:text-white transition duration-300 shadow-lg"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Decorative element -->
+      <div
+        class="absolute bottom-0 right-0 w-64 h-64 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"
+      ></div>
+    </section>
+
     <!-- Store Showcase Section with Carousel -->
     <section class="store-showcase">
       <div class="container mx-auto px-8">
@@ -448,90 +501,54 @@
           </button>
 
           <div class="store-carousel">
-            <div class="store-grid">
-              <!-- Product 1 -->
-              <div class="product-card">
+            <div class="store-grid" id="store-carousel-grid">
+              <!-- Product 1: Uni Tee -->
+              <a
+                href="product.html?id=performance-tennis-shirt"
+                class="product-card group"
+              >
                 <div class="product-media">
                   <img
-                    src="/assets/merch/top.png"
-                    alt="Performance Tennis Shirt"
-                    class="w-full h-full object-cover"
+                    src="/assets/merch/shop/uni-tee.png"
+                    alt="Uni Tee"
+                    class="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                   />
                 </div>
                 <div class="product-label">
-                  <p class="product-title">Performance Tennis Shirt</p>
+                  <p class="product-title">Uni Tee</p>
                 </div>
-              </div>
+              </a>
 
-              <!-- Product 2 -->
-              <div class="product-card">
+              <!-- Product 2: Love Cap -->
+              <a href="product.html?id=love-cap" class="product-card group">
                 <div class="product-media">
                   <img
                     src="/assets/merch/cap.png"
-                    alt="Tennis Cap"
-                    class="w-full h-full object-cover"
+                    alt="Love Cap"
+                    class="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                   />
                 </div>
                 <div class="product-label">
-                  <p class="product-title">Tennis Cap</p>
+                  <p class="product-title">Love Cap</p>
                 </div>
-              </div>
+              </a>
 
-              <!-- Product 3 -->
-              <div class="product-card">
+              <!-- Product 3: Hot Top -->
+              <a
+                href="product.html?id=tennis-tank-top"
+                class="product-card group"
+              >
                 <div class="product-media">
                   <img
-                    src="/assets/merch/skirt.png"
-                    alt="Tennis Skirt"
-                    class="w-full h-full object-cover"
+                    src="/assets/merch/shop/hot-top.png"
+                    alt="Hot Top"
+                    class="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                   />
                 </div>
                 <div class="product-label">
-                  <p class="product-title">Tennis Skirt</p>
+                  <p class="product-title">Hot Top</p>
                 </div>
-              </div>
-
-              <!-- Product 4 (extra for cycling) -->
-              <div class="product-card">
-                <div class="product-media">
-                  <img
-                    src="/assets/merch/headband.png"
-                    alt="Tennis Headband"
-                    class="w-full h-full object-cover"
-                  />
-                </div>
-                <div class="product-label">
-                  <p class="product-title">Tennis Headband</p>
-                </div>
-              </div>
-
-              <!-- Product 5 (extra for cycling) -->
-              <div class="product-card">
-                <div class="product-media">
-                  <img
-                    src="/assets/merch/top2.png"
-                    alt="Tank Top"
-                    class="w-full h-full object-cover"
-                  />
-                </div>
-                <div class="product-label">
-                  <p class="product-title">Tank Top</p>
-                </div>
-              </div>
-
-              <!-- Product 6 (extra for cycling) -->
-              <div class="product-card">
-                <div class="product-media">
-                  <img
-                    src="/assets/merch/top1.png"
-                    alt="Slim Tank Top"
-                    class="w-full h-full object-cover"
-                  />
-                </div>
-                <div class="product-label">
-                  <p class="product-title">Slim Tank Top</p>
-                </div>
-              </div>
+              </a>
             </div>
           </div>
 

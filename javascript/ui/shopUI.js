@@ -147,13 +147,24 @@ class ShopUI {
      */
     updateCartCounter() {
         const cartCountBadge = document.getElementById("cart-count");
+        const cartCountMobileBadge = document.getElementById("cart-count-mobile");
+        const count = this.cart.getItemCount();
+
         if (cartCountBadge) {
-            const count = this.cart.getItemCount();
             if (count > 0) {
                 cartCountBadge.textContent = count;
                 cartCountBadge.style.display = "inline-flex";
             } else {
                 cartCountBadge.style.display = "none";
+            }
+        }
+
+        if (cartCountMobileBadge) {
+            if (count > 0) {
+                cartCountMobileBadge.textContent = count;
+                cartCountMobileBadge.style.display = "inline-flex";
+            } else {
+                cartCountMobileBadge.style.display = "none";
             }
         }
     }
