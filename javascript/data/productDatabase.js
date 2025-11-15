@@ -24,8 +24,6 @@ const productDatabase = {
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
         colors: ["Green"],
         isNew: true,
-        rating: 4.8,
-        reviews: 128,
     },
     "court-shorts": {
         id: "court-shorts",
@@ -47,8 +45,6 @@ const productDatabase = {
         sizes: ["XS", "S", "M", "L", "XL"],
         colors: ["Black", "White", "Navy", "Pink"],
         isNew: false,
-        rating: 4.7,
-        reviews: 95,
     },
     "tennis-tank-top": {
         id: "tennis-tank-top",
@@ -70,8 +66,6 @@ const productDatabase = {
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
         colors: ["Green"],
         isNew: false,
-        rating: 4.6,
-        reviews: 87,
     },
     "love-cap": {
         id: "love-cap",
@@ -93,8 +87,6 @@ const productDatabase = {
         sizes: null,
         colors: ["White"],
         isNew: false,
-        rating: 4.7,
-        reviews: 102,
     },
     "court-pro-tennis-shoe": {
         id: "court-pro-tennis-shoe",
@@ -116,8 +108,6 @@ const productDatabase = {
         sizes: ["5", "6", "7", "8", "9", "10", "11"],
         colors: ["White/Orange", "Black/White", "Navy/Blue"],
         isNew: false,
-        rating: 4.9,
-        reviews: 234,
     },
     "agile-court-shoe": {
         id: "agile-court-shoe",
@@ -139,8 +129,6 @@ const productDatabase = {
         sizes: ["5", "6", "7", "8", "9", "10", "11"],
         colors: ["White", "Pink/White", "Navy"],
         isNew: false,
-        rating: 4.5,
-        reviews: 156,
     },
     "power-court-shoe": {
         id: "power-court-shoe",
@@ -162,8 +150,6 @@ const productDatabase = {
         sizes: ["5", "6", "7", "8", "9", "10", "11"],
         colors: ["Black/Orange", "White/Purple", "Navy/Gray"],
         isNew: false,
-        rating: 4.7,
-        reviews: 198,
     },
     "tennis-grip-tape": {
         id: "tennis-grip-tape",
@@ -185,8 +171,6 @@ const productDatabase = {
         sizes: null,
         colors: null,
         isNew: false,
-        rating: 4.8,
-        reviews: 312,
     },
     "tennis-wristband": {
         id: "tennis-wristband",
@@ -208,8 +192,6 @@ const productDatabase = {
         sizes: null,
         colors: ["Black/White", "Orange/White", "Pink/White"],
         isNew: false,
-        rating: 4.6,
-        reviews: 89,
     },
     "tennis-ball-caddy": {
         id: "tennis-ball-caddy",
@@ -231,8 +213,6 @@ const productDatabase = {
         sizes: null,
         colors: ["Black", "Orange", "White"],
         isNew: true,
-        rating: 4.7,
-        reviews: 156,
     },
 };
 
