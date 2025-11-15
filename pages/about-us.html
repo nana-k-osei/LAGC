@@ -64,7 +64,7 @@
             >Shop</a
           >
           <a
-            href="#"
+            href="#footer"
             class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
             >Contact</a
           >
@@ -75,33 +75,6 @@
             >Become a Member</a
           >
         </div>
-
-        <!-- Mobile Cart Icon -->
-        <a
-          href="cart.html"
-          class="md:hidden relative inline-flex items-center justify-center p-2"
-          title="Shopping Cart"
-        >
-          <svg
-            class="w-6 h-6 text-black"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M7 4V3a1 1 0 011-1h8a1 1 0 011 1v1h4a1 1 0 110 2h-.941l1.856 11.736a2 2 0 01-1.965 2.261H5.05a2 2 0 01-1.965-2.26L4.941 6H4a1 1 0 110-2h3zm2 2h6V4H9v2z"
-            />
-          </svg>
-          <span
-            id="cart-count-mobile"
-            class="absolute -top-1 -right-1 min-w-[22px] h-5 px-1.5 bg-gray-800 text-xs font-bold rounded-full flex items-center justify-center shadow-lg"
-            style="
-              display: none;
-              font-size: 11px;
-              line-height: 1.2;
-              color: white !important;
-            "
-          ></span>
-        </a>
 
         <!-- Mobile Menu Button -->
         <button
@@ -137,9 +110,14 @@
             >Shop</a
           >
           <a
-            href="#"
+            href="#footer"
             class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
             >Contact</a
+          >
+          <a
+            href="/membership"
+            class="block w-full px-6 py-3 bg-black text-white text-center rounded-full font-bold uppercase tracking-wide text-sm hover:bg-orange-500 transition"
+            >Become a Member</a
           >
         </div>
       </div>
@@ -433,7 +411,7 @@
     <script type="module" src="/javascript/main.js"></script>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-100 mt-12 py-12">
+    <footer id="footer" class="border-t border-gray-100 mt-12 py-12">
       <div class="container mx-auto px-8 text-center">
         <div
           class="flex flex-col md:flex-row items-center justify-center gap-6 text-sm text-gray-600 uppercase tracking-wide mb-6"
