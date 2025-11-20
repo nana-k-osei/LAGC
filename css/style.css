@@ -49,6 +49,35 @@ nav a,
   font-weight: 600;
 }
 
+/* Modern button hover effects */
+button,
+a[class*="btn"],
+a[class*="rounded-full"],
+.hero-cta,
+.features .feature-content a,
+.store-showcase a {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Button hover - lift effect with shadow */
+button:hover,
+a[class*="rounded-full"]:hover,
+.hero-cta:hover,
+.features .feature-content a:hover,
+.store-showcase a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Button active press effect */
+button:active,
+a[class*="rounded-full"]:active,
+.hero-cta:active {
+  transform: translateY(0);
+}
+
 .nav-shadow {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -540,6 +569,17 @@ section[class*="sticky"].nav-hidden {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
 }
 
+/* Pulsating animation for feature images */
+@keyframes imagePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
 /* Features: alternating image/text rows */
 .features .feature-img {
   display: block;
@@ -548,6 +588,13 @@ section[class*="sticky"].nav-hidden {
   object-fit: cover;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
   border-radius: 8px;
+  animation: imagePulse 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.features .feature-img:hover {
+  transform: scale(1.02);
+  animation: none;
 }
 
 .features .feature-content h3 {
