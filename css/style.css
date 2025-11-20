@@ -78,6 +78,11 @@ a[class*="rounded-full"]:active,
   transform: translateY(0);
 }
 
+/* White button text visibility on hover */
+.bg-white:hover {
+  color: #000 !important;
+}
+
 .nav-shadow {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -581,7 +586,7 @@ section[class*="sticky"].nav-hidden {
 }
 
 /* Features: alternating image/text rows */
-.features .feature-img {
+.feature-img {
   display: block;
   width: 100%;
   height: auto;
@@ -592,7 +597,7 @@ section[class*="sticky"].nav-hidden {
   transition: transform 0.3s ease;
 }
 
-.features .feature-img:hover {
+.feature-img:hover {
   transform: scale(1.02);
   animation: none;
 }
