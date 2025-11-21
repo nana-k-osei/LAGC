@@ -1,6 +1,6 @@
 # Environment and Config Files
-javascript/config/firebaseConfig.js
 javascript/config/paystackConfig.js
+javascript/config/firebaseConfig.js
 .env
 .env.local
 .env.*.local
