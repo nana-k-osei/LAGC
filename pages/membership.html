@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Join Love All Girls Club membership and unlock exclusive benefits, discounts, and priority access."
+    />
+    <title>Membership - Love All Girls Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="font-sans bg-white">
+    <!-- Top Utility Bar -->
+    <div class="w-full bg-black text-white text-sm py-2">
+      <div class="container mx-auto px-8 flex justify-end space-x-6">
+        <a href="#" class="hover:text-orange-500">Help</a>
+        <a href="#" class="hover:text-orange-500">Book a Session</a>
+        <a href="#" class="hover:text-orange-500">Join Us</a>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav
+      id="site-nav"
+      class="fixed top-0 w-full bg-white z-50 border-b border-gray-100"
+    >
+      <div
+        class="container mx-auto px-4 sm:px-9 py-4 flex justify-between items-center"
+      >
+        <a href="index.html">
+          <img
+            src="/assets/logos/LAG Black.png"
+            alt="LAGC Logo"
+            class="logo-img h-8 sm:h-10"
+          />
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex space-x-10 items-center">
+          <a
+            href="index.html#our-story"
+            class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
+            >About</a
+          >
+          <a
+            href="shop.html"
+            class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
+            >Shop</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
+            >Play</a
+          >
+          <a
+            href="index.html#footer"
+            class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
+            >Contact</a
+          >
+          <button
+            id="user-menu-desktop"
+            class="px-6 py-2 bg-black text-white rounded-full font-bold uppercase tracking-wide text-sm hover:bg-orange-500 transition"
+          >
+            Become a Member
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden flex flex-col space-y-1.5 p-2"
+          aria-label="Toggle menu"
+        >
+          <span class="block w-6 h-0.5 bg-black transition-transform"></span>
+          <span class="block w-6 h-0.5 bg-black transition-transform"></span>
+          <span class="block w-6 h-0.5 bg-black transition-transform"></span>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Menu -->
+      <div
+        id="mobile-menu"
+        class="md:hidden bg-white border-t border-gray-100 max-h-0 overflow-hidden transition-all duration-300"
+      >
+        <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+          <a
+            href="index.html#our-story"
+            class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
+            >About</a
+          >
+          <a
+            href="shop.html"
+            class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
+            >Shop</a
+          >
+          <a
+            href="#"
+            class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
+            >Play</a
+          >
+          <a
+            href="index.html#footer"
+            class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
+            >Contact</a
+          >
+          <button
+            id="user-menu-mobile"
+            class="block w-full px-6 py-3 bg-black text-white text-center rounded-full font-bold uppercase tracking-wide text-sm hover:bg-orange-500 transition"
+          >
+            Become a Member
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="relative mt-24 bg-gray-900 text-white py-32 overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800 opacity-95"
+      ></div>
+
+      <div class="relative z-10 container mx-auto px-8 text-center">
+        <h1
+          class="text-4xl sm:text-5xl md:text-6xl font-bold uppercase mb-6 tracking-wide"
+        >
+          Join the Community
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
+          Become a member and unlock exclusive benefits, special discounts, and
+          priority access to events.
+        </p>
+      </div>
+    </section>
+
+    <!-- Membership Benefits Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold uppercase mb-4">Member Benefits</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Get exclusive perks and savings when you join our community
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <!-- Benefit 1 -->
+          <div class="text-center p-8 border border-gray-200 rounded-lg">
+            <div
+              class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold uppercase mb-2">Up to 15% Discount</h3>
+            <p class="text-gray-600 mb-4">
+              Save up to 15% on all shop purchases and exclusive member items
+            </p>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="text-center p-8 border border-gray-200 rounded-lg">
+            <div
+              class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold uppercase mb-2">Priority Access</h3>
+            <p class="text-gray-600">
+              Book training sessions and events before general public
+            </p>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="text-center p-8 border border-gray-200 rounded-lg">
+            <div
+              class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v2.605A7.969 7.969 0 015.5 6c1.255 0 2.443.29 3.5.804V4.804zm2 0V4c0-1.255-.29-2.443-.804-3.5h2.605A7.969 7.969 0 0114 6c-1.255 0-2.443-.29-3.5-.804V4.804zm6.5 0A7.968 7.968 0 0114.5 4c-1.255 0-2.443.29-3.5.804v2.605A7.969 7.969 0 0114.5 6c1.255 0 2.443.29 3.5.804V4.804zM9 15.696A7.968 7.968 0 015.5 15c-1.255 0-2.443.29-3.5.804v2.605A7.969 7.969 0 015.5 17c1.255 0 2.443.29 3.5.804v-2.108zm2 0v2.108A7.969 7.969 0 0114 17c1.255 0 2.443-.29 3.5-.804v-2.605A7.968 7.968 0 0014.5 15c-1.255 0-2.443.29-3.5.804zm6.5 0A7.968 7.968 0 0114.5 15c-1.255 0-2.443.29-3.5.804v2.605A7.969 7.969 0 0114.5 17c1.255 0 2.443.29 3.5.804v-2.108z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold uppercase mb-2">Exclusive Events</h3>
+            <p class="text-gray-600">
+              Access member-only tournaments, socials, and community events
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sign Up Form Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-8">
+        <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+          <h2 class="text-3xl font-bold uppercase mb-6 text-center">
+            Sign Up Today
+          </h2>
+
+          <!-- Sign Up Form -->
+          <form id="signup-form" class="space-y-4">
+            <!-- Full Name -->
+            <div>
+              <label class="block text-sm font-bold uppercase mb-2"
+                >Full Name</label
+              >
+              <input
+                type="text"
+                id="fullName"
+                placeholder="Your full name"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+              />
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label class="block text-sm font-bold uppercase mb-2"
+                >Email Address</label
+              >
+              <input
+                type="email"
+                id="email"
+                placeholder="your@email.com"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+              />
+            </div>
+
+            <!-- Password -->
+            <div>
+              <label class="block text-sm font-bold uppercase mb-2"
+                >Password</label
+              >
+              <input
+                type="password"
+                id="password"
+                placeholder="Create a strong password"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+              />
+            </div>
+
+            <!-- Confirm Password -->
+            <div>
+              <label class="block text-sm font-bold uppercase mb-2"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+              />
+            </div>
+
+            <!-- Terms -->
+            <div class="flex items-center">
+              <input
+                type="checkbox"
+                id="terms"
+                required
+                class="rounded border-gray-300"
+              />
+              <label class="ml-2 text-sm text-gray-600"
+                >I agree to the terms and conditions</label
+              >
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="w-full px-6 py-3 bg-black text-white font-bold uppercase rounded-full hover:bg-orange-500 transition flex items-center justify-center gap-2"
+            >
+              <span id="signup-btn-text">Create Membership</span>
+              <span id="signup-btn-loader" class="hidden">
+                <svg
+                  class="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              </span>
+            </button>
+
+            <!-- Error Message -->
+            <div
+              id="error-message"
+              class="hidden text-red-600 text-sm text-center p-3 bg-red-50 rounded"
+            ></div>
+
+            <!-- Success Message -->
+            <div
+              id="success-message"
+              class="hidden text-green-600 text-sm text-center p-3 bg-green-50 rounded"
+            ></div>
+          </form>
+
+          <!-- Already a Member -->
+          <div class="mt-6 text-center">
+            <p class="text-gray-600 text-sm">
+              Already a member?
+              <button
+                id="toggle-login"
+                class="text-orange-500 hover:text-orange-600 font-bold"
+              >
+                Sign In
+              </button>
+            </p>
+          </div>
+        </div>
+
+        <!-- Sign In Form (Hidden by default) -->
+        <div
+          class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg hidden"
+          id="login-form-container"
+        >
+          <h2 class="text-3xl font-bold uppercase mb-6 text-center">Sign In</h2>
+
+          <form id="login-form" class="space-y-4">
+            <!-- Email -->
+            <div>
+              <label class="block text-sm font-bold uppercase mb-2"
+                >Email Address</label
+              >
+              <input
+                type="email"
+                id="login-email"
+                placeholder="your@email.com"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+              />
+            </div>
+
+            <!-- Password -->
+            <div>
+              <label class="block text-sm font-bold uppercase mb-2"
+                >Password</label
+              >
+              <input
+                type="password"
+                id="login-password"
+                placeholder="Your password"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+              />
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="w-full px-6 py-3 bg-black text-white font-bold uppercase rounded-full hover:bg-orange-500 transition flex items-center justify-center gap-2"
+            >
+              <span id="login-btn-text">Sign In</span>
+              <span id="login-btn-loader" class="hidden">
+                <svg
+                  class="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              </span>
+            </button>
+
+            <!-- Error Message -->
+            <div
+              id="login-error-message"
+              class="hidden text-red-600 text-sm text-center p-3 bg-red-50 rounded"
+            ></div>
+          </form>
+
+          <!-- Back to Sign Up -->
+          <div class="mt-6 text-center">
+            <p class="text-gray-600 text-sm">
+              Don't have an account?
+              <button
+                id="toggle-signup"
+                class="text-orange-500 hover:text-orange-600 font-bold"
+              >
+                Sign Up
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="/javascript/ui/toast.js"></script>
+    <script type="module" src="/javascript/ui/membershipUI.js"></script>
+
+    <!-- Footer -->
+    <footer id="footer" class="border-t border-gray-100 mt-12 py-12">
+      <div class="container mx-auto px-8 text-center">
+        <div
+          class="flex flex-col md:flex-row items-center justify-center gap-6 text-sm text-gray-600 uppercase tracking-wide mb-6"
+        >
+          <span>training for all levels</span>
+          <span class="hidden md:inline-block">|</span>
+          <span>mentorship & events</span>
+          <span class="hidden md:inline-block">|</span>
+          <span>performance gear</span>
+        </div>
+
+        <!-- Three-stripe motif -->
+        <div class="flex justify-center mb-6">
+          <span class="block w-16 h-1 bg-black rounded-sm mx-1"></span>
+          <span class="block w-16 h-1 bg-black rounded-sm mx-1"></span>
+          <span class="block w-16 h-1 bg-black rounded-sm mx-1"></span>
+        </div>
+
+        <!-- Centered logo -->
+        <div class="flex justify-center mb-8">
+          <img src="/assets/logos/LAG Black.png" alt="LAG Logo" class="h-14" />
+        </div>
+
+        <!-- Social Media Icons -->
+        <div class="flex justify-center gap-6 mb-8">
+          <!-- Instagram -->
+          <a
+            href="https://www.instagram.com/loveallgirlsclub/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-orange-500 hover:text-orange-600 transition"
+            title="Instagram"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path
+                d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"
+                fill="currentColor"
+              />
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" />
+            </svg>
+          </a>
+
+          <!-- X (Twitter) -->
+          <a
+            href="#"
+            class="text-orange-500 hover:text-orange-600 transition"
+            title="X"
+          >
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 9-1.5 9-1.5s-2 3-5 3c2-2 3-5 3-5z"
+              />
+            </svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a
+            href="#"
+            class="text-orange-500 hover:text-orange-600 transition"
+            title="LinkedIn"
+          >
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
+              ></path>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+        </div>
+        <div
+          class="border-t border-gray-100 pt-8 text-center text-gray-600 text-sm"
+        >
+          <p>
+            &copy; 2025 Love All Girls Club. All rights reserved. |
+            <a
+              href="https://www.linkedin.com/in/samuel-kwame-osei/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-orange-500 hover:text-orange-600 transition"
+              >Sam®</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

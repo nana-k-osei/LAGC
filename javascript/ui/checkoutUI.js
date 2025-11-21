@@ -55,7 +55,7 @@ class CheckoutUI {
               <p class="text-xs text-gray-500 mt-1">Qty: ${item.quantity}</p>
             </div>
           </div>
-          <p class="font-bold text-sm">$${(item.price * item.quantity).toFixed(2)}</p>
+          <p class="font-bold text-sm">₵${(item.price * item.quantity).toFixed(2)}</p>
         </div>
       `
             )
@@ -72,11 +72,11 @@ class CheckoutUI {
         const tax = this.cart.getTax();
         const total = subtotal + this.shippingCost + tax;
 
-        document.getElementById("checkout-subtotal").textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById("checkout-subtotal").textContent = `₵${subtotal.toFixed(2)}`;
         document.getElementById("checkout-shipping").textContent =
-            this.shippingCost === 0 ? "FREE" : `$${this.shippingCost.toFixed(2)}`;
-        document.getElementById("checkout-tax").textContent = `$${tax.toFixed(2)}`;
-        document.getElementById("checkout-total").textContent = `$${total.toFixed(2)}`;
+            this.shippingCost === 0 ? "FREE" : `₵${this.shippingCost.toFixed(2)}`;
+        document.getElementById("checkout-tax").textContent = `₵${tax.toFixed(2)}`;
+        document.getElementById("checkout-total").textContent = `₵${total.toFixed(2)}`;
     }
 
     /**

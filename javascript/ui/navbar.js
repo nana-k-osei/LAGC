@@ -14,8 +14,15 @@ class Navbar {
         this.mobileMenuOpen = false;
         this.navbarHeight = 0;
 
+        console.log('Navbar initialized:', {
+            nav: !!this.nav,
+            mobileMenuBtn: !!this.mobileMenuBtn,
+            mobileMenu: !!this.mobileMenu
+        });
+
+        // Only initialize if nav element exists
         if (!this.nav) {
-            console.warn("Navbar: Navigation element not found.");
+            console.warn("Navbar: Navigation element not found. Skipping initialization.");
             return;
         }
 
@@ -55,11 +62,16 @@ class Navbar {
     }
 
     toggleMobileMenu() {
+        console.log('toggleMobileMenu called, mobileMenuOpen:', this.mobileMenuOpen);
         this.mobileMenuOpen ? this.closeMobileMenu() : this.openMobileMenu();
     }
 
     openMobileMenu() {
-        if (!this.mobileMenu) return;
+        if (!this.mobileMenu) {
+            console.error('Mobile menu element not found');
+            return;
+        }
+        console.log('Opening mobile menu, scrollHeight:', this.mobileMenu.scrollHeight);
         this.mobileMenuOpen = true;
         this.mobileMenu.style.maxHeight = this.mobileMenu.scrollHeight + "px";
         this.mobileMenuBtn.classList.add("active");
@@ -67,6 +79,7 @@ class Navbar {
 
     closeMobileMenu() {
         if (!this.mobileMenu) return;
+        console.log('Closing mobile menu');
         this.mobileMenuOpen = false;
         this.mobileMenu.style.maxHeight = "0";
         this.mobileMenuBtn.classList.remove("active");

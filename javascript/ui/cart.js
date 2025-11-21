@@ -3,6 +3,8 @@
  * Handles: adding/removing items, quantity updates, price calculations, localStorage persistence
  */
 
+import Authentication from './authentication.js';
+
 class Cart {
     constructor() {
         this.items = this.loadFromStorage();
@@ -82,10 +84,20 @@ class Cart {
     }
 
     /**
-     * Get subtotal (before tax and shipping)
+     * Get subtotal (before tax and shipping, with member discount applied)
      */
     getSubtotal() {
-        return this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        let subtotal = this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        // Apply member discount if user is logged in and is a member
+        if (Authentication.currentUser && Authentication.isMember) {
+            const discount = Authentication.getDiscount();
+            if (discount > 0) {
+                subtotal = subtotal * (1 - discount / 100);
+            }
+        }
+
+        return subtotal;
     }
 
     /**
@@ -97,18 +109,17 @@ class Cart {
     }
 
     /**
-     * Calculate tax
+     * Calculate tax (tax included in product prices, kept for reference)
      */
     getTax() {
-        const subtotal = this.getSubtotal();
-        return subtotal * this.TAX_RATE;
+        return 0; // Tax is included in product prices
     }
 
     /**
-     * Get total (subtotal + tax + shipping)
+     * Get total (subtotal + shipping, tax included in prices)
      */
     getTotal() {
-        return this.getSubtotal() + this.getTax() + this.getShipping();
+        return this.getSubtotal() + this.getShipping();
     }
 
     /**

@@ -1,0 +1,322 @@
+/**
+ * Checkout Handler Module
+ * Handles the complete checkout flow with Paystack payment integration
+ * Includes inventory validation and order creation
+ */
+
+import Authentication from "./authentication.js";
+import discountSystem from "./discountSystem.js";
+import inventoryManager from "./inventory.js";
+import { database } from "../config/firebaseConfig.js";
+import { ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.0/database.js";
+
+class CheckoutHandler {
+    constructor() {
+        this.paymentBtn = document.getElementById("payment-btn");
+        this.checkoutItemsContainer = document.getElementById("checkout-items");
+        this.checkoutSubtotal = document.getElementById("checkout-subtotal");
+        this.checkoutShipping = document.getElementById("checkout-shipping");
+        this.checkoutTax = document.getElementById("checkout-tax");
+        this.checkoutTotal = document.getElementById("checkout-total");
+
+        this.paystackPublicKey = "pk_test_e9dbc9998e38056f05975341385af2167ec9b75a";
+        this.cart = null;
+        this.userEmail = null;
+        this.isMember = false;
+        this.memberDiscount = 0;
+
+        this.init();
+    }
+
+    /**
+     * Initialize checkout handler
+     */
+    async init() {
+        try {
+            // Get user info
+            const currentUser = Authentication.currentUser;
+            if (currentUser) {
+                this.userEmail = currentUser.email;
+                const memberData = await Authentication.checkMembershipStatus(currentUser.uid);
+                if (memberData) {
+                    this.isMember = true;
+                    this.memberDiscount = await Authentication.getDiscount();
+                    console.log(`✅ Member logged in: ${memberData.tier} tier, ${this.memberDiscount}% discount`);
+                }
+            }
+
+            // Get cart from localStorage
+            this.cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            if (this.cart.length === 0) {
+                console.warn("⚠️ Cart is empty");
+                this.paymentBtn.disabled = true;
+                this.paymentBtn.textContent = "Cart is Empty";
+                return;
+            }
+
+            // Display cart items and calculate total
+            this.displayCheckoutItems();
+            this.calculateTotal();
+
+            // Attach payment button listener
+            this.paymentBtn.addEventListener("click", () => this.initiatePayment());
+
+            console.log("✅ Checkout handler initialized");
+        } catch (error) {
+            console.error("❌ Error initializing checkout:", error);
+        }
+    }
+
+    /**
+     * Display cart items in checkout
+     */
+    displayCheckoutItems() {
+        this.checkoutItemsContainer.innerHTML = "";
+
+        this.cart.forEach((item) => {
+            const itemElement = document.createElement("div");
+            itemElement.className = "flex justify-between items-start text-sm pb-3 border-b border-gray-200";
+
+            // Apply member discount if applicable
+            const finalPrice = this.isMember
+                ? item.price * (1 - this.memberDiscount / 100)
+                : item.price;
+            const itemTotal = finalPrice * item.quantity;
+
+            itemElement.innerHTML = `
+                <div>
+                    <p class="font-semibold">${item.name}</p>
+                    <p class="text-gray-600">Qty: ${item.quantity}</p>
+                </div>
+                <div class="text-right">
+                    <p class="font-semibold">₵${itemTotal.toFixed(2)}</p>
+                    ${this.isMember ? `<p class="text-green-600 text-xs">-${this.memberDiscount}%</p>` : ""}
+                </div>
+            `;
+
+            this.checkoutItemsContainer.appendChild(itemElement);
+        });
+    }
+
+    /**
+     * Calculate order total with tax and shipping
+     */
+    calculateTotal() {
+        let subtotal = 0;
+
+        this.cart.forEach((item) => {
+            const finalPrice = this.isMember
+                ? item.price * (1 - this.memberDiscount / 100)
+                : item.price;
+            subtotal += finalPrice * item.quantity;
+        });
+
+        const shipping = 0; // Free shipping for now
+        const tax = subtotal * 0.075; // 7.5% tax
+        const total = subtotal + shipping + tax;
+
+        // Update display
+        this.checkoutSubtotal.textContent = `₵${subtotal.toFixed(2)}`;
+        this.checkoutShipping.textContent = shipping === 0 ? "FREE" : `₵${shipping.toFixed(2)}`;
+        this.checkoutTax.textContent = `₵${tax.toFixed(2)}`;
+        this.checkoutTotal.textContent = `₵${total.toFixed(2)}`;
+
+        // Store totals for payment
+        this.totals = { subtotal, shipping, tax, total };
+    }
+
+    /**
+     * Validate cart against inventory before checkout
+     */
+    async validateInventory() {
+        for (const item of this.cart) {
+            const inStock = await inventoryManager.isInStock(item.id, item.quantity);
+            if (!inStock) {
+                const currentStock = await inventoryManager.getStock(item.id);
+                window.toast.error(`${item.name} has only ${currentStock} units available, but you have ${item.quantity} in cart.`);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Initiate Paystack payment
+     */
+    async initiatePayment() {
+        try {
+            // Validate inventory
+            const inventoryValid = await this.validateInventory();
+            if (!inventoryValid) {
+                return;
+            }
+
+            // Get user email from form if not logged in
+            const emailInput = document.getElementById("email");
+            const email = this.userEmail || emailInput.value;
+
+            if (!email) {
+                window.toast.error('Please enter an email address');
+                return;
+            }
+
+            // Disable button
+            this.paymentBtn.disabled = true;
+            this.paymentBtn.textContent = "Processing...";
+
+            // Convert cedis to pesewas (Paystack uses smallest currency unit)
+            const amountInPesewas = Math.round(this.totals.total * 100);
+
+            // Prepare Paystack configuration
+            const paystackConfig = {
+                email: email,
+                amount: amountInPesewas,
+                currency: "GHS",
+                publicKey: this.paystackPublicKey,
+                ref: `order_${Date.now()}`,
+                onClose: () => {
+                    console.log("❌ Payment window closed");
+                    this.paymentBtn.disabled = false;
+                    this.paymentBtn.textContent = "Pay Now with Paystack";
+                    window.toast.warning('Payment cancelled');
+                },
+                onSuccess: (response) => {
+                    console.log("✅ Payment successful:", response);
+                    this.handlePaymentSuccess(response, email);
+                }
+            };
+
+            // Open Paystack modal
+            this.openPaystackModal(paystackConfig);
+
+        } catch (error) {
+            console.error("❌ Error initiating payment:", error);
+            window.toast.error('Error initiating payment. Please try again.');
+            this.paymentBtn.disabled = false;
+            this.paymentBtn.textContent = "Pay Now with Paystack";
+        }
+    }
+
+    /**
+     * Open Paystack payment modal
+     */
+    openPaystackModal(config) {
+        // Load Paystack script if not already loaded
+        if (!window.PaystackPop) {
+            const script = document.createElement("script");
+            script.src = "https://js.paystack.co/v1/inline.js";
+            script.onload = () => {
+                window.PaystackPop.setup(config).openIframe();
+            };
+            document.head.appendChild(script);
+        } else {
+            window.PaystackPop.setup(config).openIframe();
+        }
+    }
+
+    /**
+     * Handle successful payment
+     */
+    async handlePaymentSuccess(response, email) {
+        try {
+            console.log("💳 Processing payment success...");
+
+            // Verify payment reference
+            const isVerified = await this.verifyPayment(response.reference);
+
+            if (!isVerified) {
+                window.toast.error('Payment verification failed');
+                this.paymentBtn.disabled = false;
+                this.paymentBtn.textContent = "Pay Now with Paystack";
+                return;
+            }
+
+            // Reduce inventory for each item
+            for (const item of this.cart) {
+                await inventoryManager.reduceStock(item.id, item.quantity);
+            }
+
+            // Save transaction to Firebase
+            await this.saveTransaction(response, email);
+
+            // Clear cart
+            localStorage.removeItem("cart");
+
+            // Show success message
+            window.toast.success('Payment successful! Your order has been placed.', 4000);
+
+            // Redirect to order confirmation
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 2000);
+
+        } catch (error) {
+            console.error("❌ Error handling payment success:", error);
+            window.toast.error('Error processing payment. Please contact support.');
+            this.paymentBtn.disabled = false;
+            this.paymentBtn.textContent = "Pay Now with Paystack";
+        }
+    }
+
+    /**
+     * Verify payment with Paystack (client-side)
+     * In production, this should be done server-side
+     */
+    async verifyPayment(reference) {
+        try {
+            // For now, we'll trust Paystack's onSuccess callback
+            // In production, implement server-side verification
+            console.log("✅ Payment reference:", reference);
+            return true;
+        } catch (error) {
+            console.error("❌ Error verifying payment:", error);
+            return false;
+        }
+    }
+
+    /**
+     * Save transaction to Firebase
+     */
+    async saveTransaction(paystackResponse, email) {
+        try {
+            const transactionRef = ref(database, "transactions");
+            const newTransactionRef = push(transactionRef);
+
+            const transactionData = {
+                id: paystackResponse.reference,
+                email: email,
+                userId: Authentication.currentUser?.uid || null,
+                isMember: this.isMember,
+                memberDiscount: this.memberDiscount,
+                items: this.cart,
+                subtotal: this.totals.subtotal,
+                tax: this.totals.tax,
+                shipping: this.totals.shipping,
+                total: this.totals.total,
+                paymentStatus: "completed",
+                paymentMethod: "Paystack",
+                paystackReference: paystackResponse.reference,
+                createdAt: new Date().toISOString(),
+            };
+
+            await set(newTransactionRef, transactionData);
+            console.log("✅ Transaction saved to Firebase");
+
+        } catch (error) {
+            console.error("❌ Error saving transaction:", error);
+            throw error;
+        }
+    }
+}
+
+// Initialize checkout handler when DOM is ready
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+        new CheckoutHandler();
+    });
+} else {
+    new CheckoutHandler();
+}
+
+export default CheckoutHandler;

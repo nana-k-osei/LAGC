@@ -4,6 +4,7 @@
  */
 
 import Cart from "./cart.js";
+import Authentication from "./authentication.js";
 
 class CartUI {
   constructor() {
@@ -19,7 +20,17 @@ class CartUI {
   /**
    * Initialize cart UI
    */
-  init() {
+  async init() {
+    // Show loader while waiting for auth
+    const loader = document.getElementById("cart-loader");
+    if (loader) loader.style.display = "flex";
+
+    // Wait for authentication to be ready before rendering
+    await Authentication.waitForAuthReady();
+
+    // Hide loader
+    if (loader) loader.style.display = "none";
+
     this.render();
     this.attachEventListeners();
     window.addEventListener("cartUpdated", () => this.render());
@@ -115,7 +126,7 @@ class CartUI {
                 <div class="text-right">
                   <p class="text-sm text-gray-600 mb-1">Total</p>
                   <p class="text-2xl font-bold text-orange-500">
-                    $${(item.price * item.quantity).toFixed(2)}
+                    ₵${(item.price * item.quantity).toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -131,16 +142,29 @@ class CartUI {
    * Update order summary
    */
   updateSummary() {
+    // Calculate original subtotal (before discount)
+    const originalSubtotal = this.cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
     const subtotal = this.cart.getSubtotal();
     const shipping = this.cart.getShipping();
-    const tax = this.cart.getTax();
     const total = this.cart.getTotal();
 
-    document.getElementById("summary-subtotal").textContent = `$${subtotal.toFixed(2)}`;
+    // Calculate discount amount
+    const discountAmount = originalSubtotal - subtotal;
+
+    // Show/hide discount section - check if user has discount
+    const discountSection = document.getElementById("discount-section");
+    if (Authentication.currentUser && Authentication.isMember && discountAmount > 0) {
+      discountSection.classList.remove("hidden");
+      document.getElementById("summary-discount").textContent = `-₵${discountAmount.toFixed(2)}`;
+    } else {
+      discountSection.classList.add("hidden");
+    }
+
+    document.getElementById("summary-subtotal").textContent = `₵${subtotal.toFixed(2)}`;
     document.getElementById("summary-shipping").textContent =
-      shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`;
-    document.getElementById("summary-tax").textContent = `$${tax.toFixed(2)}`;
-    document.getElementById("summary-total").textContent = `$${total.toFixed(2)}`;
+      shipping === 0 ? "FREE" : `₵${shipping.toFixed(2)}`;
+    document.getElementById("summary-total").textContent = `₵${total.toFixed(2)}`;
   }
 
   /**
@@ -195,7 +219,7 @@ class CartUI {
 
           // Show success toast
           if (window.toast) {
-            window.toast.success(`Promo code "${code}" applied! You saved $${discount.toFixed(2)}`);
+            window.toast.success(`Promo code "${code}" applied! You saved ₵${discount.toFixed(2)}`);
           }
 
           setTimeout(() => {

@@ -192,10 +192,29 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <!-- Cart Items (Left Side) -->
           <div class="lg:col-span-2">
+            <!-- Cart Loader -->
+            <div
+              id="cart-loader"
+              class="flex flex-col items-center justify-center py-20 bg-gray-50 rounded-2xl border border-gray-200"
+            >
+              <div class="flex flex-col items-center space-y-4">
+                <!-- Spinner -->
+                <div class="relative w-12 h-12">
+                  <div
+                    class="absolute inset-0 border-4 border-gray-200 rounded-full"
+                  ></div>
+                  <div
+                    class="absolute inset-0 border-4 border-transparent border-t-orange-500 border-r-orange-500 rounded-full animate-spin"
+                  ></div>
+                </div>
+                <p class="text-gray-600 font-medium">Loading your cart...</p>
+              </div>
+            </div>
+
             <!-- Empty Cart State -->
             <div
               id="empty-cart"
-              class="text-center py-16 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300"
+              class="hidden text-center py-16 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300"
             >
               <svg
                 class="w-20 h-20 mx-auto text-gray-300 mb-4"
@@ -237,7 +256,7 @@
               <div class="space-y-3 mb-6 pb-6 border-b border-gray-200">
                 <div class="flex justify-between text-sm">
                   <span class="text-gray-600">Subtotal</span>
-                  <span class="font-semibold" id="summary-subtotal">$0.00</span>
+                  <span class="font-semibold" id="summary-subtotal">₵0.00</span>
                 </div>
                 <div class="flex justify-between text-sm">
                   <span class="text-gray-600">Shipping</span>
@@ -247,9 +266,16 @@
                     >FREE</span
                   >
                 </div>
-                <div class="flex justify-between text-sm">
-                  <span class="text-gray-600">Tax</span>
-                  <span class="font-semibold" id="summary-tax">$0.00</span>
+                <div
+                  id="discount-section"
+                  class="hidden flex justify-between text-sm"
+                >
+                  <span class="text-gray-600">Member Discount</span>
+                  <span
+                    class="font-semibold text-green-600"
+                    id="summary-discount"
+                    >-₵0.00</span
+                  >
                 </div>
               </div>
 
@@ -259,7 +285,8 @@
                 <span
                   class="text-3xl font-bold text-orange-500"
                   id="summary-total"
-                  >$0.00</span
+                  >₵0.00</span
+                >
                 >
               </div>
 
@@ -316,7 +343,7 @@
         >
           <div class="text-center">
             <div class="text-4xl mb-3">🛒</div>
-            <p class="font-semibold">Free Shipping on Orders $50+</p>
+            <p class="font-semibold">Free Shipping on Orders ₵850+</p>
             <p class="text-sm text-gray-600">Fast delivery to your door</p>
           </div>
           <div class="text-center">
@@ -340,7 +367,7 @@
         <div
           class="flex flex-col md:flex-row items-center justify-center gap-6 text-sm text-gray-600 uppercase tracking-wide mb-6"
         >
-          <span>Free Shipping on Orders $50+</span>
+          <span>Free Shipping on Orders ₵850+</span>
           <span class="hidden md:inline-block">|</span>
           <span>30-Day Returns</span>
           <span class="hidden md:inline-block">|</span>

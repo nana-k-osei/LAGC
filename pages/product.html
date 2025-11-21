@@ -68,22 +68,68 @@
 
           <!-- Icon Group -->
           <div class="flex items-center gap-4 pl-4 border-l border-gray-200">
-            <!-- Account Icon -->
-            <button
-              class="relative p-2 rounded-full hover:bg-gray-100 transition"
-              title="Account"
-              aria-label="Account login"
-            >
-              <svg
-                class="w-5 h-5 text-black"
-                fill="currentColor"
-                viewBox="0 0 24 24"
+            <!-- Account Icon with Dropdown -->
+            <div class="relative">
+              <button
+                id="account-menu-btn"
+                class="relative p-2 rounded-full hover:bg-gray-100 transition"
+                title="Account"
+                aria-label="Account menu"
               >
-                <path
-                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="w-5 h-5 text-black"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  />
+                </svg>
+              </button>
+
+              <!-- Dropdown Menu (Hidden by default) -->
+              <div
+                id="account-dropdown"
+                class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-50"
+              >
+                <!-- User Info -->
+                <div
+                  id="user-info-section"
+                  class="hidden p-4 border-b border-gray-200"
+                >
+                  <p class="text-sm text-gray-600">Signed in as</p>
+                  <p id="user-email" class="font-bold text-black truncate"></p>
+                  <p
+                    id="member-status"
+                    class="text-xs text-orange-600 font-semibold mt-1"
+                  ></p>
+                </div>
+
+                <!-- Logout Button (shown when logged in) -->
+                <a
+                  id="admin-link"
+                  href="/pages/admin.html"
+                  class="hidden block w-full px-4 py-2 text-left text-orange-600 hover:bg-orange-50 font-semibold border-t border-gray-200"
+                >
+                  ⚙️ Admin Dashboard
+                </a>
+                <button
+                  id="logout-btn"
+                  class="hidden w-full px-4 py-2 text-left text-red-600 hover:bg-red-50 font-semibold border-t border-gray-200"
+                >
+                  Sign Out
+                </button>
+
+                <!-- Become Member Button (shown when not logged in) -->
+                <a
+                  id="user-menu-dropdown"
+                  href="/pages/membership.html"
+                  class="block w-full px-4 py-2 text-left text-orange-600 hover:bg-orange-50 font-semibold"
+                >
+                  Join Our Club
+                </a>
+              </div>
+            </div>
 
             <!-- Favorites Icon -->
             <button
@@ -226,8 +272,38 @@
       </div>
     </div>
 
+    <!-- Loading Spinner -->
+    <div
+      id="product-loader"
+      class="flex items-center justify-center py-24 bg-white"
+    >
+      <div class="text-center">
+        <svg
+          class="animate-spin h-12 w-12 text-orange-500 mx-auto mb-4"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        <p class="text-gray-600 font-semibold">Loading product details...</p>
+      </div>
+    </div>
+
     <!-- Product Details Section -->
-    <section class="py-12 bg-white">
+    <section class="py-12 bg-white hidden" id="product-section">
       <div class="container mx-auto px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           <!-- Product Image Gallery -->
@@ -317,13 +393,20 @@
 
             <!-- Price -->
             <div class="flex items-end gap-4 mb-6">
-              <p id="product-price" class="text-5xl font-bold">$89</p>
+              <div>
+                <p id="product-price" class="text-5xl font-bold">₵120</p>
+                <p
+                  id="discounted-price"
+                  class="text-green-600 text-2xl font-bold mt-2 hidden"
+                >
+                  <span class="text-sm text-gray-600">Member Price:</span>
+                  <span id="discount-price-value">₵0</span>
+                </p>
+              </div>
               <p
                 id="product-original-price"
                 class="text-gray-400 line-through text-xl"
-              >
-                $119
-              </p>
+              ></p>
             </div>
 
             <!-- Description -->
@@ -447,7 +530,7 @@
                 </svg>
                 <div>
                   <p class="font-bold text-black">Free Shipping</p>
-                  <p class="text-gray-600 text-sm">On orders over $50</p>
+                  <p class="text-gray-600 text-sm">On orders over ₵850</p>
                 </div>
               </div>
               <div class="flex items-start gap-4">
@@ -628,6 +711,162 @@
     </footer>
 
     <script type="module" src="/javascript/main.js"></script>
-    <script type="module" src="/javascript/main.js"></script>
+
+    <!-- Account Menu Handler -->
+    <script type="module">
+      import Authentication from "/javascript/ui/authentication.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const accountBtn = document.getElementById("account-menu-btn");
+        const accountDropdown = document.getElementById("account-dropdown");
+        const logoutBtn = document.getElementById("logout-btn");
+        const adminLink = document.getElementById("admin-link");
+        const userInfoSection = document.getElementById("user-info-section");
+        const userEmail = document.getElementById("user-email");
+        const memberStatus = document.getElementById("member-status");
+        const becomeMemberDropdown =
+          document.getElementById("user-menu-dropdown");
+
+        if (!accountBtn) return; // Elements not found
+
+        // Toggle dropdown when clicking account button
+        accountBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          accountDropdown.classList.toggle("hidden");
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", (e) => {
+          if (
+            !accountBtn.contains(e.target) &&
+            !accountDropdown.contains(e.target)
+          ) {
+            accountDropdown.classList.add("hidden");
+          }
+        });
+
+        // Update UI based on auth state
+        const updateAccountUI = () => {
+          if (Authentication.currentUser) {
+            // User is logged in
+            userEmail.textContent = Authentication.currentUser.email;
+
+            if (Authentication.isMember) {
+              const discount = Authentication.getDiscount();
+              if (discount > 0) {
+                memberStatus.textContent = `✅ Member • ${discount}% Discount`;
+              } else {
+                memberStatus.textContent = `✅ Member`;
+              }
+            } else {
+              memberStatus.textContent = "👤 Account";
+            }
+
+            userInfoSection.classList.remove("hidden");
+
+            // Only show admin link if user is admin
+            if (Authentication.isAdmin()) {
+              adminLink.classList.remove("hidden");
+            } else {
+              adminLink.classList.add("hidden");
+            }
+            logoutBtn.classList.remove("hidden");
+            if (becomeMemberDropdown) {
+              becomeMemberDropdown.classList.add("hidden");
+            }
+          } else {
+            // User is not logged in
+            userInfoSection.classList.add("hidden");
+            adminLink.classList.add("hidden");
+            logoutBtn.classList.add("hidden");
+            if (becomeMemberDropdown) {
+              becomeMemberDropdown.classList.remove("hidden");
+            }
+          }
+        };
+
+        // Handle logout
+        logoutBtn.addEventListener("click", async () => {
+          await Authentication.signOut();
+          accountDropdown.classList.add("hidden");
+          updateAccountUI();
+          window.toast.success("You have been signed out", 3000);
+        });
+
+        // Watch for auth changes
+        if (Authentication.currentUser) {
+          updateAccountUI();
+        }
+
+        // Listen for auth state changes
+        const originalOnUserLoggedIn = Authentication.onUserLoggedIn;
+        const originalOnUserLoggedOut = Authentication.onUserLoggedOut;
+
+        Authentication.onUserLoggedIn = function (user) {
+          updateAccountUI();
+          if (originalOnUserLoggedIn) originalOnUserLoggedIn.call(this, user);
+        };
+
+        Authentication.onUserLoggedOut = function () {
+          updateAccountUI();
+          if (originalOnUserLoggedOut) originalOnUserLoggedOut.call(this);
+        };
+      });
+    </script>
+
+    <!-- Product Discount Display Handler -->
+    <script type="module">
+      import Authentication from "/javascript/ui/authentication.js";
+
+      // Update discount price display when page loads
+      async function updateDiscountDisplay() {
+        // Wait for auth to be ready
+        await Authentication.waitForAuthReady();
+
+        // Check if user is logged in and is a member
+        if (!Authentication.currentUser || !Authentication.isMember) {
+          return; // Not a member, don't show discount
+        }
+
+        const discount = Authentication.getDiscount();
+        if (discount <= 0) {
+          return; // No discount, don't show
+        }
+
+        // Get current product price
+        const priceEl = document.getElementById("product-price");
+        if (!priceEl) return;
+
+        const priceText = priceEl.textContent.replace("₵", "").trim();
+        const basePrice = parseFloat(priceText);
+        if (isNaN(basePrice)) return;
+
+        // Calculate discounted price
+        const discountedPrice = basePrice * (1 - discount / 100);
+        const savings = basePrice - discountedPrice;
+
+        // Update the discounted price display
+        const discountedPriceEl = document.getElementById("discounted-price");
+        const discountPriceValueEl = document.getElementById(
+          "discount-price-value"
+        );
+
+        if (discountedPriceEl && discountPriceValueEl) {
+          discountPriceValueEl.textContent = `₵${discountedPrice.toFixed(2)}`;
+          discountedPriceEl.classList.remove("hidden");
+
+          // Add savings info
+          const savingsEl = document.createElement("p");
+          savingsEl.className = "text-sm text-gray-600 mt-1";
+          savingsEl.textContent = `💚 Save ₵${savings.toFixed(
+            2
+          )} (${discount}% off)`;
+          discountedPriceEl.appendChild(savingsEl);
+        }
+      }
+
+      // Run on page load
+      document.addEventListener("DOMContentLoaded", updateDiscountDisplay);
+    </script>
   </body>
 </html>

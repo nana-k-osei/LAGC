@@ -4,10 +4,12 @@
  */
 
 import Cart from "./cart.js";
+import { database } from '../config/firebaseConfig.js';
+import { ref, get } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js';
 
 class ProductDetail {
     constructor(productDatabase) {
-        this.productDatabase = productDatabase;
+        this.productDatabase = productDatabase; // Fallback to local database
         this.cart = new Cart();
         this.selectedSize = null;
         this.selectedColor = null;
@@ -51,13 +53,45 @@ class ProductDetail {
     /**
      * Load and display product details
      */
-    loadProduct() {
+    async loadProduct() {
         const productId = this.getProductFromURL();
-        const product = this.productDatabase[productId];
+        console.log('Product ID from URL:', productId);
+
+        const loader = document.getElementById('product-loader');
+        const productSection = document.getElementById('product-section');
+
+        // Show loader, hide content
+        if (loader) loader.style.display = 'flex';
+        if (productSection) productSection.classList.add('hidden');
+
+        let product = null;
+
+        // Try to load from Firebase first
+        try {
+            const productRef = ref(database, `products/${productId}`);
+            const snapshot = await get(productRef);
+            if (snapshot.exists()) {
+                product = snapshot.val();
+                console.log('Product loaded from Firebase:', product);
+            }
+        } catch (error) {
+            console.warn('Error loading from Firebase, falling back to local database:', error);
+        }
+
+        // Fallback to local database if Firebase fails or product not found
+        if (!product) {
+            console.log('Available products in local DB:', Object.keys(this.productDatabase));
+            product = this.productDatabase[productId];
+            if (product) {
+                console.log('Product loaded from local database:', product);
+            }
+        }
 
         if (!product) {
+            console.error('Product not found:', productId);
+            if (loader) loader.style.display = 'none';
             document.body.innerHTML =
-                '<div class="flex items-center justify-center h-screen"><h1>Product not found</h1></div>';
+                '<div class="flex items-center justify-center h-screen"><h1>Product not found: ' + productId + '</h1></div>';
             return;
         }
 
@@ -91,6 +125,10 @@ class ProductDetail {
 
         // Attach event listeners
         this.attachEventListeners();
+
+        // Hide loader, show content
+        if (loader) loader.style.display = 'none';
+        if (productSection) productSection.classList.remove('hidden');
     }
 
     /**
@@ -120,7 +158,7 @@ class ProductDetail {
             imageEl.src = product.image;
             imageEl.alt = product.name;
         }
-        if (priceEl) priceEl.textContent = `$${product.price}`;
+        if (priceEl) priceEl.textContent = `₵${product.price}`;
         if (descEl) descEl.textContent = product.description;
 
         // Initialize image gallery
@@ -134,7 +172,7 @@ class ProductDetail {
         const originalPriceEl = document.getElementById("product-original-price");
         if (originalPriceEl) {
             if (product.originalPrice) {
-                originalPriceEl.textContent = `$${product.originalPrice}`;
+                originalPriceEl.textContent = `₵${product.originalPrice}`;
                 originalPriceEl.style.display = "block";
             } else {
                 originalPriceEl.style.display = "none";
@@ -151,13 +189,8 @@ class ProductDetail {
 
         if (!thumbnailsContainer || !mainImage) return;
 
-        // Create 4 thumbnail variations using the same image as placeholder
-        const images = [
-            product.image,
-            product.image,
-            product.image,
-            product.image,
-        ];
+        // Use product images array if available, otherwise fallback to single image
+        const images = product.images || [product.image, product.image, product.image];
 
         let currentImageIndex = 0;
 
@@ -343,9 +376,9 @@ class ProductDetail {
                   </h4>
                 </a>
                 <div class="flex items-end gap-2 pt-2">
-                  <p class="text-2xl font-bold">$${product.price}</p>
+                  <p class="text-2xl font-bold">₵${product.price}</p>
                   ${product.originalPrice
-                            ? `<p class="text-gray-400 line-through text-sm">$${product.originalPrice}</p>`
+                            ? `<p class="text-gray-400 line-through text-sm">₵${product.originalPrice}</p>`
                             : ""
                         }
                 </div>

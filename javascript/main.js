@@ -14,6 +14,9 @@ import CheckoutUI from "./ui/checkoutUI.js";
 import Cart from "./ui/cart.js";
 import Toast from "./ui/toast.js";
 import productDatabase from "./data/productDatabase.js";
+import Authentication from "./ui/authentication.js";
+import discountSystem from "./ui/discountSystem.js";
+import inventoryManager from "./ui/inventory.js";
 
 class App {
     constructor() {
@@ -93,6 +96,8 @@ class App {
         const checkoutItemsContainer = document.getElementById("checkout-items");
         const shopProductCards = document.querySelectorAll('button[title="Add to Cart"]');
 
+        console.log('ProductDetail element found:', !!productDetailElement);
+
         // Initialize ScrollReveal on ALL pages (not just homepage)
         this.modules.scrollReveal = new ScrollReveal({
             revealDelay: 500,
@@ -118,7 +123,9 @@ class App {
 
         // Product detail page modules
         if (productDetailElement) {
+            console.log('Initializing ProductDetail module...');
             this.modules.productDetail = new ProductDetail(productDatabase);
+            console.log('ProductDetail module initialized');
         }
 
         // Cart page modules

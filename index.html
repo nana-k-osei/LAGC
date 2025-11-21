@@ -68,9 +68,78 @@
             class="font-bold text-black uppercase tracking-wide text-sm hover:text-orange-500 transition"
             >Contact</a
           >
+
+          <!-- Icon Group -->
+          <div class="flex items-center gap-4 pl-4 border-l border-gray-200">
+            <!-- Account Icon with Dropdown -->
+            <div class="relative">
+              <button
+                id="account-menu-btn"
+                class="relative p-2 rounded-full hover:bg-gray-100 transition"
+                title="Account"
+                aria-label="Account menu"
+              >
+                <svg
+                  class="w-5 h-5 text-black"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  />
+                </svg>
+              </button>
+
+              <!-- Dropdown Menu (Hidden by default) -->
+              <div
+                id="account-dropdown"
+                class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-50"
+              >
+                <!-- User Info -->
+                <div
+                  id="user-info-section"
+                  class="hidden p-4 border-b border-gray-200"
+                >
+                  <p class="text-sm text-gray-600">Signed in as</p>
+                  <p id="user-email" class="font-bold text-black truncate"></p>
+                  <p
+                    id="member-status"
+                    class="text-xs text-orange-600 font-semibold mt-1"
+                  ></p>
+                </div>
+
+                <!-- Logout Button (shown when logged in) -->
+                <a
+                  id="admin-link"
+                  href="/pages/admin.html"
+                  class="hidden block w-full px-4 py-2 text-left text-orange-600 hover:bg-orange-50 font-semibold border-t border-gray-200"
+                >
+                  ⚙️ Admin Dashboard
+                </a>
+                <button
+                  id="logout-btn"
+                  class="hidden w-full px-4 py-2 text-left text-red-600 hover:bg-red-50 font-semibold border-t border-gray-200"
+                >
+                  Sign Out
+                </button>
+
+                <!-- Become Member Button (shown when not logged in) -->
+                <a
+                  id="user-menu-dropdown"
+                  href="/pages/membership.html"
+                  class="block w-full px-4 py-2 text-left text-orange-600 hover:bg-orange-50 font-semibold"
+                >
+                  Join Our Club
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Become a Member Button (hidden when logged in) -->
           <a
-            href="/membership"
-            class="px-6 py-2 bg-black text-white rounded-full font-bold uppercase tracking-wide text-sm hover:bg-orange-500 transition"
+            id="user-menu-desktop"
+            href="/pages/membership.html"
+            class="hidden px-6 py-2 bg-black text-white rounded-full font-bold uppercase tracking-wide text-sm hover:bg-orange-500 transition"
             >Become a Member</a
           >
         </div>
@@ -113,8 +182,41 @@
             class="font-bold text-black uppercase tracking-wide text-sm py-2 hover:text-orange-500 transition"
             >Contact</a
           >
+
+          <!-- Mobile User Account Menu (shown when logged in) -->
+          <div
+            id="mobile-user-menu"
+            class="hidden border-t border-gray-200 pt-3"
+          >
+            <p id="mobile-user-email" class="text-xs text-gray-600 px-2 mb-2">
+              Signed in as
+            </p>
+            <p
+              id="mobile-user-info"
+              class="font-bold text-black px-2 mb-3 truncate"
+            ></p>
+            <p
+              id="mobile-member-status"
+              class="text-xs text-orange-600 font-semibold px-2 mb-3"
+            ></p>
+            <a
+              id="mobile-admin-link"
+              href="/pages/admin.html"
+              class="hidden block w-full px-4 py-2 text-left text-orange-600 hover:bg-orange-50 font-semibold"
+            >
+              ⚙️ Admin Dashboard
+            </a>
+            <button
+              id="mobile-logout-btn"
+              class="hidden w-full px-4 py-2 text-left text-red-600 hover:bg-red-50 font-semibold"
+            >
+              Sign Out
+            </button>
+          </div>
+
           <a
-            href="/membership"
+            id="mobile-member-btn"
+            href="/pages/membership.html"
             class="block w-full px-6 py-3 bg-black text-white text-center rounded-full font-bold uppercase tracking-wide text-sm hover:bg-orange-500 transition"
             >Become a Member</a
           >
@@ -162,7 +264,7 @@
                 Unleash Your Power
               </h1>
               <a
-                href="/membership"
+                href="/pages/membership.html"
                 class="hero-cta mt-6 sm:mt-8 px-6 sm:px-10 py-2 sm:py-4 bg-white text-black text-base sm:text-lg md:text-xl font-bold rounded-full uppercase tracking-wide"
                 >Get Started</a
               >
@@ -401,7 +503,7 @@
               tennis journey.
             </p>
             <a
-              href="/membership"
+              href="/pages/membership.html"
               class="inline-block px-8 py-3 bg-black text-white rounded-full font-bold uppercase tracking-wide hover:bg-orange-500 transition"
             >
               Become a Member
@@ -685,5 +787,144 @@
         </div>
       </div>
     </footer>
+
+    <!-- Account Menu Handler -->
+    <script type="module">
+      import Authentication from "/javascript/ui/authentication.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Desktop elements
+        const accountBtn = document.getElementById("account-menu-btn");
+        const accountDropdown = document.getElementById("account-dropdown");
+        const logoutBtn = document.getElementById("logout-btn");
+        const adminLink = document.getElementById("admin-link");
+        const userInfoSection = document.getElementById("user-info-section");
+        const userEmail = document.getElementById("user-email");
+        const memberStatus = document.getElementById("member-status");
+        const becomeMemberLink = document.getElementById("user-menu-desktop");
+
+        // Mobile elements
+        const mobileUserMenu = document.getElementById("mobile-user-menu");
+        const mobileUserInfo = document.getElementById("mobile-user-info");
+        const mobileUserEmail = document.getElementById("mobile-user-email");
+        const mobileMemberStatus = document.getElementById(
+          "mobile-member-status"
+        );
+        const mobileLogoutBtn = document.getElementById("mobile-logout-btn");
+        const mobileAdminLink = document.getElementById("mobile-admin-link");
+        const mobileMemberBtn = document.getElementById("mobile-member-btn");
+
+        // Toggle dropdown when clicking account button
+        accountBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          accountDropdown.classList.toggle("hidden");
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", (e) => {
+          if (
+            !accountBtn.contains(e.target) &&
+            !accountDropdown.contains(e.target)
+          ) {
+            accountDropdown.classList.add("hidden");
+          }
+        });
+
+        // Update UI based on auth state
+        const updateAccountUI = () => {
+          if (Authentication.currentUser) {
+            // User is logged in
+            userEmail.textContent = Authentication.currentUser.email;
+            mobileUserEmail.textContent = Authentication.currentUser.email;
+
+            if (Authentication.isMember) {
+              const discount = Authentication.getDiscount();
+              if (discount > 0) {
+                memberStatus.textContent = `✅ Member • ${discount}% Discount`;
+                mobileMemberStatus.textContent = `✅ Member • ${discount}% Discount`;
+              } else {
+                memberStatus.textContent = `✅ Member`;
+                mobileMemberStatus.textContent = `✅ Member`;
+              }
+            } else {
+              memberStatus.textContent = "👤 Account";
+              mobileMemberStatus.textContent = "👤 Account";
+            }
+
+            userInfoSection.classList.remove("hidden");
+            mobileUserMenu.classList.remove("hidden");
+
+            // Only show admin link if user is admin
+            if (Authentication.isAdmin()) {
+              adminLink.classList.remove("hidden");
+              mobileAdminLink.classList.remove("hidden");
+            } else {
+              adminLink.classList.add("hidden");
+              mobileAdminLink.classList.add("hidden");
+            }
+            logoutBtn.classList.remove("hidden");
+            mobileLogoutBtn.classList.remove("hidden");
+            becomeMemberLink.classList.add("hidden");
+            mobileMemberBtn.classList.add("hidden");
+
+            // Update button text with user's full name
+            const fullName = Authentication.getFullName();
+            if (fullName) {
+              const firstName = fullName.split(" ")[0]; // Get first name only
+              becomeMemberLink.textContent = `👋 Welcome, ${firstName}`;
+              mobileUserInfo.textContent = `👋 Welcome, ${firstName}`;
+            } else {
+              becomeMemberLink.textContent = "👤 Account";
+              mobileUserInfo.textContent = "👤 Account";
+            }
+          } else {
+            // User is not logged in
+            userInfoSection.classList.add("hidden");
+            mobileUserMenu.classList.add("hidden");
+            adminLink.classList.add("hidden");
+            mobileAdminLink.classList.add("hidden");
+            logoutBtn.classList.add("hidden");
+            mobileLogoutBtn.classList.add("hidden");
+            becomeMemberLink.classList.remove("hidden");
+            becomeMemberLink.textContent = "Become a Member";
+            mobileMemberBtn.classList.remove("hidden");
+          }
+        };
+
+        // Handle logout
+        logoutBtn.addEventListener("click", async () => {
+          await Authentication.signOut();
+          accountDropdown.classList.add("hidden");
+          updateAccountUI();
+          window.toast.success("You have been signed out", 3000);
+        });
+
+        // Handle mobile logout
+        mobileLogoutBtn.addEventListener("click", async () => {
+          await Authentication.signOut();
+          updateAccountUI();
+          window.toast.success("You have been signed out", 3000);
+        });
+
+        // Watch for auth changes
+        if (Authentication.currentUser) {
+          updateAccountUI();
+        }
+
+        // Listen for auth state changes
+        const originalOnUserLoggedIn = Authentication.onUserLoggedIn;
+        const originalOnUserLoggedOut = Authentication.onUserLoggedOut;
+
+        Authentication.onUserLoggedIn = function (user) {
+          updateAccountUI();
+          if (originalOnUserLoggedIn) originalOnUserLoggedIn.call(this, user);
+        };
+
+        Authentication.onUserLoggedOut = function () {
+          updateAccountUI();
+          if (originalOnUserLoggedOut) originalOnUserLoggedOut.call(this);
+        };
+      });
+    </script>
   </body>
 </html>

@@ -64,7 +64,13 @@ class ShopUI {
                 return;
             }
 
-            // Add to cart with quantity 1
+            // If product requires size selection, show size picker modal
+            if (product.sizes && product.sizes.length > 0) {
+                this.showSizePickerModal(product, productIndex);
+                return;
+            }
+
+            // Add to cart with quantity 1 (no size needed)
             this.cart.addItem(product, 1, null, null);
 
             // Show success feedback
@@ -72,6 +78,92 @@ class ShopUI {
         } catch (error) {
             console.error("Error adding to cart:", error);
         }
+    }
+
+    /**
+     * Show size picker modal for products with sizes
+     * @param {Object} product - Product object
+     * @param {number} productIndex - Index of product card
+     */
+    showSizePickerModal(product, productIndex) {
+        // Remove existing modal if any
+        const existingModal = document.getElementById("size-picker-modal");
+        if (existingModal) {
+            existingModal.remove();
+        }
+
+        // Create modal HTML
+        const modalHTML = `
+            <div id="size-picker-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-xl">
+                    <h3 class="text-2xl font-bold mb-2">${product.name}</h3>
+                    <p class="text-gray-600 mb-6">Select your size</p>
+
+                    <div class="grid grid-cols-3 gap-3 mb-6">
+                        ${product.sizes.map(size => `
+                            <button class="size-btn py-3 px-4 border-2 border-gray-300 rounded-lg font-semibold hover:border-orange-500 hover:text-orange-500 transition" data-size="${size}">
+                                ${size}
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button id="cancel-size-btn" class="flex-1 py-3 border-2 border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition">
+                            Cancel
+                        </button>
+                        <button id="confirm-size-btn" class="flex-1 py-3 bg-black text-white rounded-lg font-semibold hover:bg-orange-500 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Insert modal into page
+        document.body.insertAdjacentHTML("beforeend", modalHTML);
+        const modal = document.getElementById("size-picker-modal");
+        let selectedSize = null;
+
+        // Attach size selection listeners
+        const sizeBtns = modal.querySelectorAll(".size-btn");
+        const confirmBtn = document.getElementById("confirm-size-btn");
+        const cancelBtn = document.getElementById("cancel-size-btn");
+
+        sizeBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                // Remove previous selection
+                sizeBtns.forEach(b => {
+                    b.classList.remove("bg-black", "text-white", "border-black");
+                    b.classList.add("border-gray-300", "text-gray-700", "bg-white");
+                });
+                // Add selection to clicked button
+                btn.classList.remove("border-gray-300", "text-gray-700", "bg-white");
+                btn.classList.add("bg-black", "text-white", "border-black");
+                selectedSize = btn.getAttribute("data-size");
+                confirmBtn.disabled = false;
+            });
+        });
+
+        // Handle confirm
+        confirmBtn.addEventListener("click", () => {
+            if (selectedSize) {
+                this.cart.addItem(product, 1, selectedSize, null);
+                this.showAddToCartFeedback(this.addToCartButtons[productIndex]);
+                modal.remove();
+            }
+        });
+
+        // Handle cancel
+        cancelBtn.addEventListener("click", () => {
+            modal.remove();
+        });
+
+        // Close modal on background click
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
     }
 
     /**
