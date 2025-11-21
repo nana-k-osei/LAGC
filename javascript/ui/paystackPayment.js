@@ -5,10 +5,11 @@
 
 import Authentication from './authentication.js';
 import discountSystem from './discountSystem.js';
+import { getPaystackKey } from '../config/paystackConfig.js';
 
 class PaystackPayment {
     constructor() {
-        this.publicKey = 'pk_test_e9dbc9998e38056f05975341385af2167ec9b75a';
+        this.publicKey = getPaystackKey();
         this.loadPaystackScript();
     }
 
