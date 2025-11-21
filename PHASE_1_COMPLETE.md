@@ -179,12 +179,12 @@ User Flow:
 
 **Firebase:**
 - Project ID: `lagc-5421c`
-- API Key: `AIzaSyAUT5rt3wn78hct0n2sVqv1JNN-16pIUvg`
+- **API Keys**: Stored securely in Netlify environment variables
 - Auth Domain: `lagc-5421c.firebaseapp.com`
 - Database: `Realtime Database` (Test Mode)
 
 **Paystack:**
-- Test Public Key: `pk_test_e9dbc9998e38056f05975341385af2167ec9b75a`
+- **Test Public Key**: Stored securely in Netlify environment variables
 - Test Secret Key: (Keep private!)
 - Test Card: `5531 8860 5531 8860`
 
