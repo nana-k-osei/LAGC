@@ -1,6 +1,3 @@
 [build]
   command = "echo 'No build step needed for vanilla JS'"
   publish = "."
-
-# Note: For production, you may need to ensure config files are available
-# This is a static site, so config files with hardcoded keys should work

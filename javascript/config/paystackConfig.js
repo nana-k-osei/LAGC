@@ -1,13 +1,11 @@
 /**
  * Paystack Configuration
  * Contains Paystack API keys for payment processing
- * 
- * This file is ignored by .gitignore to protect keys
- * DO NOT commit this file to version control!
+ * Keys are loaded from environment variables for security
  */
 
-// Your Paystack public key (test or live)
-const paystackPublicKey = 'pk_test_e9dbc9998e38056f05975341385af2167ec9b75a';
+// Get Paystack public key from environment or use fallback
+const paystackPublicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || 'pk_test_e9dbc9998e38056f05975341385af2167ec9b75a';
 
 /**
  * Get Paystack public key
