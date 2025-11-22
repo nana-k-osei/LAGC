@@ -40,16 +40,34 @@ class CheckoutHandler {
             // Wait for Authentication to be ready
             await Authentication.initPromise;
 
+            console.log('🔍 After initPromise - authReady:', Authentication.authReady, 'currentUser:', Authentication.currentUser?.email);
+
+            // Wait for auth to be ready (first auth state change has fired)
+            if (!Authentication.authReady) {
+                console.log('⏳ Waiting for auth to be ready...');
+                await new Promise((resolve) => {
+                    const checkReady = setInterval(() => {
+                        if (Authentication.authReady) {
+                            clearInterval(checkReady);
+                            console.log('✅ Auth is now ready');
+                            resolve();
+                        }
+                    }, 100);
+                });
+            }
+
             // Set up callback for when user logs in/out
             const originalOnLogin = Authentication.onUserLoggedIn;
             Authentication.onUserLoggedIn = (user) => {
                 if (originalOnLogin) originalOnLogin.call(Authentication, user);
+                console.log('🔄 User logged in callback - refreshing checkout');
                 this.updateMemberStatus();
             };
 
             const originalOnLogout = Authentication.onUserLoggedOut;
             Authentication.onUserLoggedOut = () => {
                 if (originalOnLogout) originalOnLogout.call(Authentication);
+                console.log('🔄 User logged out callback - refreshing checkout');
                 this.updateMemberStatus();
             };
 
@@ -64,6 +82,7 @@ class CheckoutHandler {
             }
 
             // Initial load - get current member status
+            console.log('🔍 Initial updateMemberStatus call');
             await this.updateMemberStatus();
 
             // Attach payment button listener
@@ -80,22 +99,31 @@ class CheckoutHandler {
      */
     async updateMemberStatus() {
         try {
+            console.log('📋 updateMemberStatus called');
             const currentUser = Authentication.currentUser;
+            console.log('🔍 Current user:', currentUser?.email, 'isMember:', Authentication.isMember);
+
             if (currentUser) {
                 this.userEmail = currentUser.email;
                 const memberData = await Authentication.checkMembershipStatus(currentUser.uid);
+                console.log('🔍 Member data:', memberData);
+
                 if (memberData) {
                     this.isMember = true;
                     this.memberDiscount = await Authentication.getDiscount();
-                    console.log(`✅ Member logged in: ${memberData.tier} tier, ${this.memberDiscount}% discount`);
+                    console.log(`✅ Member status updated: ${memberData.tier} tier, ${this.memberDiscount}% discount`);
                 } else {
                     this.isMember = false;
                     this.memberDiscount = 0;
+                    console.log('❌ Not a member');
                 }
             } else {
                 this.isMember = false;
                 this.memberDiscount = 0;
+                console.log('❌ No user logged in');
             }
+
+            console.log('🔍 Before refresh - isMember:', this.isMember, 'discount:', this.memberDiscount);
 
             // Refresh display with updated member status
             this.displayCheckoutItems();
