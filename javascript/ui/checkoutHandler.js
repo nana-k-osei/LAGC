@@ -108,26 +108,40 @@ class CheckoutHandler {
      */
     calculateTotal() {
         let subtotal = 0;
+        let originalSubtotal = 0;
 
         this.cart.forEach((item) => {
+            originalSubtotal += item.price * item.quantity;
             const finalPrice = this.isMember
                 ? item.price * (1 - this.memberDiscount / 100)
                 : item.price;
             subtotal += finalPrice * item.quantity;
         });
 
+        const discountAmount = originalSubtotal - subtotal;
         const shipping = 0; // Free shipping for now
         const tax = subtotal * 0.075; // 7.5% tax
         const total = subtotal + shipping + tax;
 
         // Update display
-        this.checkoutSubtotal.textContent = `₵${subtotal.toFixed(2)}`;
+        this.checkoutSubtotal.textContent = `₵${originalSubtotal.toFixed(2)}`;
+        
+        // Show/hide discount section
+        const discountSection = document.getElementById('checkout-discount-section');
+        const discountElement = document.getElementById('checkout-discount');
+        if (this.isMember && discountAmount > 0) {
+            if (discountSection) discountSection.classList.remove('hidden');
+            if (discountElement) discountElement.textContent = `-₵${discountAmount.toFixed(2)}`;
+        } else {
+            if (discountSection) discountSection.classList.add('hidden');
+        }
+        
         this.checkoutShipping.textContent = shipping === 0 ? "FREE" : `₵${shipping.toFixed(2)}`;
         this.checkoutTax.textContent = `₵${tax.toFixed(2)}`;
         this.checkoutTotal.textContent = `₵${total.toFixed(2)}`;
 
         // Store totals for payment
-        this.totals = { subtotal, shipping, tax, total };
+        this.totals = { subtotal, shipping, tax, total, discount: discountAmount };
     }
 
     /**
