@@ -19,7 +19,6 @@ class CheckoutHandler {
         this.checkoutShipping = document.getElementById("checkout-shipping");
         this.checkoutTax = document.getElementById("checkout-tax");
         this.checkoutTotal = document.getElementById("checkout-total");
-        this.loader = document.getElementById("checkout-loader");
 
         this.paystackPublicKey = null;
         this.cart = null;
@@ -45,37 +44,34 @@ class CheckoutHandler {
                 console.warn("⚠️ Cart is empty");
                 this.paymentBtn.disabled = true;
                 this.paymentBtn.textContent = "Cart is Empty";
-                if (this.loader) this.loader.style.display = 'none';
                 return;
             }
 
-            // Display items immediately with prices from cart
+            // Wait for Authentication to be ready first
+            await Authentication.initPromise;
+
+            // Get member status immediately
+            if (Authentication.currentUser && Authentication.isMember && Authentication.membershipData) {
+                this.userEmail = Authentication.currentUser.email;
+                this.isMember = true;
+                this.memberDiscount = Authentication.membershipData.discountPercentage || 0;
+                console.log(`✅ Member: ${this.memberDiscount}% discount`);
+            }
+
+            // Display items with correct discount
             this.displayCheckoutItems();
             this.calculateTotal();
-
-            // Hide loader after initial display
-            if (this.loader) this.loader.style.display = 'none';
-
-            // Wait for Authentication in the background and update if needed
-            Authentication.initPromise.then(() => {
-                console.log('🔍 Auth ready, checking member status');
-                this.updateMemberStatusInBackground();
-            }).catch(err => {
-                console.error('Auth init error:', err);
-            });
 
             // Set up callback for when user logs in/out
             const originalOnLogin = Authentication.onUserLoggedIn;
             Authentication.onUserLoggedIn = (user) => {
                 if (originalOnLogin) originalOnLogin.call(Authentication, user);
-                console.log('🔄 User logged in - refreshing checkout');
                 this.updateMemberStatusInBackground();
             };
 
             const originalOnLogout = Authentication.onUserLoggedOut;
             Authentication.onUserLoggedOut = () => {
                 if (originalOnLogout) originalOnLogout.call(Authentication);
-                console.log('🔄 User logged out - refreshing checkout');
                 this.updateMemberStatusInBackground();
             };
 
@@ -85,7 +81,6 @@ class CheckoutHandler {
             console.log("✅ Checkout handler initialized");
         } catch (error) {
             console.error("❌ Error initializing checkout:", error);
-            if (this.loader) this.loader.style.display = 'none';
         }
     }
 
