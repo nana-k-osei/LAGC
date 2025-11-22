@@ -34,45 +34,9 @@ class CheckoutHandler {
      * Initialize checkout handler
      */
     async init() {
-        // Load Paystack key
-        this.paystackPublicKey = await getPaystackKey();
-
         try {
-            // Wait for Authentication to be ready
-            await Authentication.initPromise;
-
-            console.log('🔍 After initPromise - authReady:', Authentication.authReady, 'currentUser:', Authentication.currentUser?.email);
-
-            // Wait for auth to be ready (first auth state change has fired) with timeout
-            if (!Authentication.authReady) {
-                console.log('⏳ Waiting for auth to be ready...');
-                await new Promise((resolve) => {
-                    let elapsed = 0;
-                    const checkReady = setInterval(() => {
-                        elapsed += 100;
-                        if (Authentication.authReady || elapsed >= 5000) {
-                            clearInterval(checkReady);
-                            console.log('✅ Auth is now ready or timed out');
-                            resolve();
-                        }
-                    }, 100);
-                });
-            }
-
-            // Set up callback for when user logs in/out
-            const originalOnLogin = Authentication.onUserLoggedIn;
-            Authentication.onUserLoggedIn = (user) => {
-                if (originalOnLogin) originalOnLogin.call(Authentication, user);
-                console.log('🔄 User logged in callback - refreshing checkout');
-                this.updateMemberStatus();
-            };
-
-            const originalOnLogout = Authentication.onUserLoggedOut;
-            Authentication.onUserLoggedOut = () => {
-                if (originalOnLogout) originalOnLogout.call(Authentication);
-                console.log('🔄 User logged out callback - refreshing checkout');
-                this.updateMemberStatus();
-            };
+            // Load Paystack key
+            this.paystackPublicKey = await getPaystackKey();
 
             // Get cart from localStorage
             this.cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -81,16 +45,39 @@ class CheckoutHandler {
                 console.warn("⚠️ Cart is empty");
                 this.paymentBtn.disabled = true;
                 this.paymentBtn.textContent = "Cart is Empty";
-                // Hide loader even if cart is empty
-                if (this.loader) {
-                    this.loader.style.display = 'none';
-                }
+                if (this.loader) this.loader.style.display = 'none';
                 return;
             }
 
-            // Initial load - get current member status
-            console.log('🔍 Initial updateMemberStatus call');
-            await this.updateMemberStatus();
+            // Display items immediately with prices from cart
+            this.displayCheckoutItems();
+            this.calculateTotal();
+
+            // Hide loader after initial display
+            if (this.loader) this.loader.style.display = 'none';
+
+            // Wait for Authentication in the background and update if needed
+            Authentication.initPromise.then(() => {
+                console.log('🔍 Auth ready, checking member status');
+                this.updateMemberStatusInBackground();
+            }).catch(err => {
+                console.error('Auth init error:', err);
+            });
+
+            // Set up callback for when user logs in/out
+            const originalOnLogin = Authentication.onUserLoggedIn;
+            Authentication.onUserLoggedIn = (user) => {
+                if (originalOnLogin) originalOnLogin.call(Authentication, user);
+                console.log('🔄 User logged in - refreshing checkout');
+                this.updateMemberStatusInBackground();
+            };
+
+            const originalOnLogout = Authentication.onUserLoggedOut;
+            Authentication.onUserLoggedOut = () => {
+                if (originalOnLogout) originalOnLogout.call(Authentication);
+                console.log('🔄 User logged out - refreshing checkout');
+                this.updateMemberStatusInBackground();
+            };
 
             // Attach payment button listener
             this.paymentBtn.addEventListener("click", () => this.initiatePayment());
@@ -98,17 +85,14 @@ class CheckoutHandler {
             console.log("✅ Checkout handler initialized");
         } catch (error) {
             console.error("❌ Error initializing checkout:", error);
-            // Hide loader on error
-            if (this.loader) {
-                this.loader.style.display = 'none';
-            }
+            if (this.loader) this.loader.style.display = 'none';
         }
     }
 
     /**
-     * Update member status and refresh display
+     * Update member status in background without blocking
      */
-    async updateMemberStatus() {
+    async updateMemberStatusInBackground() {
         try {
             console.log('📋 updateMemberStatus called');
             console.log('🔍 Authentication state:', {
@@ -124,38 +108,23 @@ class CheckoutHandler {
                 if (Authentication.isMember && Authentication.membershipData) {
                     this.isMember = true;
                     this.memberDiscount = Authentication.membershipData.discountPercentage || 0;
-                    console.log(`✅ Member status updated: ${Authentication.membershipData.tier} tier, ${this.memberDiscount}% discount`);
+                    console.log(`✅ Member discount: ${this.memberDiscount}%`);
                 } else {
                     this.isMember = false;
                     this.memberDiscount = 0;
-                    console.log('❌ Not a member');
                 }
             } else {
                 this.isMember = false;
                 this.memberDiscount = 0;
-                console.log('❌ No user logged in');
             }
-
-            console.log('🔍 Before refresh - isMember:', this.isMember, 'discount:', this.memberDiscount);
 
             // Refresh display with updated member status
             this.displayCheckoutItems();
             this.calculateTotal();
-
-            // Hide loader after calculations complete
-            if (this.loader) {
-                this.loader.style.display = 'none';
-            }
         } catch (error) {
             console.error("❌ Error updating member status:", error);
-            // Hide loader even on error
-            if (this.loader) {
-                this.loader.style.display = 'none';
-            }
         }
-    }
-
-    /**
+    }    /**
      * Display cart items in checkout
      */
     displayCheckoutItems() {
