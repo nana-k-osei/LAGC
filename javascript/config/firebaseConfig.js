@@ -1,32 +1,93 @@
 /**
  * Firebase Configuration
  * Contains all Firebase setup and initialization
- * Keys are loaded from environment variables for security
+ * Keys are loaded from Netlify Functions for security
  */
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
 import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js';
 import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js';
 
-// Load Firebase config from environment variables
-// On Netlify, environment variables are injected as window.ENV
-const firebaseConfig = {
-    apiKey: window.ENV?.VITE_FIREBASE_API_KEY || '',
-    authDomain: window.ENV?.VITE_FIREBASE_AUTH_DOMAIN || '',
-    projectId: window.ENV?.VITE_FIREBASE_PROJECT_ID || '',
-    storageBucket: window.ENV?.VITE_FIREBASE_STORAGE_BUCKET || '',
-    messagingSenderId: window.ENV?.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
-    appId: window.ENV?.VITE_FIREBASE_APP_ID || '',
-    measurementId: window.ENV?.VITE_FIREBASE_MEASUREMENT_ID || ''
-};
+// Cache for config to avoid multiple fetches
+let configCache = null;
+let configPromise = null;
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+/**
+ * Fetch configuration from Netlify Function
+ */
+async function fetchConfig() {
+    if (configCache) {
+        return configCache;
+    }
 
-// Initialize Firebase Auth and get a reference to the service
-export const auth = getAuth(app);
+    if (configPromise) {
+        return configPromise;
+    }
 
-// Initialize Realtime Database and get a reference to the service
-export const database = getDatabase(app);
+    configPromise = fetch('/.netlify/functions/get-config')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch config');
+            }
+            return response.json();
+        })
+        .then(data => {
+            configCache = data;
+            configPromise = null;
+            return data;
+        })
+        .catch(error => {
+            console.error('Error fetching config:', error);
+            configPromise = null;
+            throw error;
+        });
 
-export default app;
+    return configPromise;
+}
+
+// Initialize Firebase (will be set after config is fetched)
+let app = null;
+let auth = null;
+let database = null;
+
+/**
+ * Initialize Firebase with config from Netlify Function
+ */
+async function initializeFirebase() {
+    if (app) {
+        return { app, auth, database };
+    }
+
+    const config = await fetchConfig();
+    
+    app = initializeApp(config.firebase);
+    auth = getAuth(app);
+    database = getDatabase(app);
+
+    return { app, auth, database };
+}
+
+// Auto-initialize
+const firebasePromise = initializeFirebase();
+
+// Export a promise that resolves to initialized services
+export { firebasePromise };
+
+// Export getters that wait for initialization
+export async function getAuthInstance() {
+    await firebasePromise;
+    return auth;
+}
+
+export async function getDatabaseInstance() {
+    await firebasePromise;
+    return database;
+}
+
+export async function getAppInstance() {
+    await firebasePromise;
+    return app;
+}
+
+// For backward compatibility - export direct references (but they'll be null initially)
+export { auth, database, app as default };

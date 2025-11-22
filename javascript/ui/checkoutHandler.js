@@ -20,7 +20,7 @@ class CheckoutHandler {
         this.checkoutTax = document.getElementById("checkout-tax");
         this.checkoutTotal = document.getElementById("checkout-total");
 
-        this.paystackPublicKey = getPaystackKey();
+        this.paystackPublicKey = null;
         this.cart = null;
         this.userEmail = null;
         this.isMember = false;
@@ -33,6 +33,9 @@ class CheckoutHandler {
      * Initialize checkout handler
      */
     async init() {
+        // Load Paystack key
+        this.paystackPublicKey = await getPaystackKey();
+        
         try {
             // Get user info
             const currentUser = Authentication.currentUser;

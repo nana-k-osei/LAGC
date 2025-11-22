@@ -1,23 +1,62 @@
 /**
  * Paystack Configuration
  * Contains Paystack API keys for payment processing
- * Keys are loaded from environment variables for security
+ * Keys are loaded from Netlify Functions for security
  */
 
-// Get Paystack public key from environment
-// On Netlify, environment variables are injected as window.ENV
-const paystackPublicKey = window.ENV?.VITE_PAYSTACK_PUBLIC_KEY || '';
+// Cache for config
+let configCache = null;
+let configPromise = null;
+
+/**
+ * Fetch configuration from Netlify Function
+ */
+async function fetchConfig() {
+    if (configCache) {
+        return configCache;
+    }
+
+    if (configPromise) {
+        return configPromise;
+    }
+
+    configPromise = fetch('/.netlify/functions/get-config')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch config');
+            }
+            return response.json();
+        })
+        .then(data => {
+            configCache = data;
+            configPromise = null;
+            return data;
+        })
+        .catch(error => {
+            console.error('Error fetching Paystack config:', error);
+            configPromise = null;
+            throw error;
+        });
+
+    return configPromise;
+}
 
 /**
  * Get Paystack public key
- * @returns {string} Paystack public key
+ * @returns {Promise<string>} Paystack public key
  */
-export function getPaystackKey() {
-    if (!paystackPublicKey) {
-        console.error('Paystack public key is not configured');
+export async function getPaystackKey() {
+    try {
+        const config = await fetchConfig();
+        if (!config.paystack?.publicKey) {
+            console.error('Paystack public key is not configured');
+            return null;
+        }
+        return config.paystack.publicKey;
+    } catch (error) {
+        console.error('Error getting Paystack key:', error);
         return null;
     }
-    return paystackPublicKey;
 }
 
-export default paystackPublicKey;
+export default { getPaystackKey };
