@@ -59,7 +59,7 @@ async function initializeFirebase() {
     }
 
     const config = await fetchConfig();
-    
+
     app = initializeApp(config.firebase);
     auth = getAuth(app);
     database = getDatabase(app);

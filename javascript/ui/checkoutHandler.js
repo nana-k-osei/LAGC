@@ -35,7 +35,7 @@ class CheckoutHandler {
     async init() {
         // Load Paystack key
         this.paystackPublicKey = await getPaystackKey();
-        
+
         try {
             // Get user info
             const currentUser = Authentication.currentUser;
