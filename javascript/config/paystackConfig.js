@@ -5,7 +5,8 @@
  */
 
 // Get Paystack public key from environment
-const paystackPublicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
+// On Netlify, environment variables are injected as window.ENV
+const paystackPublicKey = window.ENV?.VITE_PAYSTACK_PUBLIC_KEY || '';
 
 /**
  * Get Paystack public key
