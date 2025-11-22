@@ -490,8 +490,14 @@
                 <!-- Member Discount -->
                 <div id="checkout-discount-section" class="hidden">
                   <div class="flex justify-between text-sm">
-                    <span class="text-green-600 font-medium">Member Discount</span>
-                    <span class="font-semibold text-green-600" id="checkout-discount">-₵0.00</span>
+                    <span class="text-green-600 font-medium"
+                      >Member Discount</span
+                    >
+                    <span
+                      class="font-semibold text-green-600"
+                      id="checkout-discount"
+                      >-₵0.00</span
+                    >
                   </div>
                 </div>
                 <div class="flex justify-between text-sm">
@@ -630,10 +636,10 @@
     <script type="module" src="/javascript/main.js"></script>
     <script type="module">
       // Import CheckoutHandler to initialize checkout page
-      import CheckoutHandler from '/javascript/ui/checkoutHandler.js';
-      
+      import CheckoutHandler from "/javascript/ui/checkoutHandler.js";
+
       // CheckoutHandler auto-initializes on page load
-      console.log('Checkout page loaded with CheckoutHandler');
+      console.log("Checkout page loaded with CheckoutHandler");
     </script>
   </body>
 </html>

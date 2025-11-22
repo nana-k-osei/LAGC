@@ -434,7 +434,7 @@
                       Delivery in 2-3 business days
                     </p>
                   </div>
-                  <span class="font-bold">₵250.00</span>
+                  <span class="font-bold">₵25.00</span>
                 </label>
 
                 <label
@@ -452,7 +452,7 @@
                       Delivery next business day
                     </p>
                   </div>
-                  <span class="font-bold">₵600.00</span>
+                  <span class="font-bold">₵60.00</span>
                 </label>
               </div>
             </div>
@@ -462,7 +462,7 @@
               id="payment-btn"
               class="w-full py-4 bg-orange-500 text-white font-bold uppercase tracking-wide rounded-lg hover:bg-orange-600 transition transform hover:scale-105 text-lg"
             >
-              Pay Now with Paystack
+              Continue to Payment
             </button>
           </div>
 
@@ -486,7 +486,19 @@
                   <span class="font-semibold" id="checkout-subtotal"
                     >₵0.00</span
                   >
-                  >
+                </div>
+                <!-- Member Discount -->
+                <div id="checkout-discount-section" class="hidden">
+                  <div class="flex justify-between text-sm">
+                    <span class="text-green-600 font-medium"
+                      >Member Discount</span
+                    >
+                    <span
+                      class="font-semibold text-green-600"
+                      id="checkout-discount"
+                      >-₵0.00</span
+                    >
+                  </div>
                 </div>
                 <div class="flex justify-between text-sm">
                   <span class="text-gray-600">Shipping</span>
@@ -506,8 +518,15 @@
                   id="checkout-total"
                   >₵0.00</span
                 >
-                >
               </div>
+
+              <!-- Payment Button -->
+              <button
+                id="payment-btn"
+                class="w-full bg-orange-500 text-white py-4 px-6 rounded-xl font-bold text-lg hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mb-6"
+              >
+                Proceed to Payment
+              </button>
 
               <!-- Info Boxes -->
               <div class="space-y-3">
@@ -615,5 +634,12 @@
     </footer>
 
     <script type="module" src="/javascript/main.js"></script>
+    <script type="module">
+      // Import CheckoutHandler to initialize checkout page
+      import CheckoutHandler from "/javascript/ui/checkoutHandler.js";
+
+      // CheckoutHandler auto-initializes on page load
+      console.log("Checkout page loaded with CheckoutHandler");
+    </script>
   </body>
 </html>

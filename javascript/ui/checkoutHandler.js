@@ -125,7 +125,7 @@ class CheckoutHandler {
 
         // Update display
         this.checkoutSubtotal.textContent = `₵${originalSubtotal.toFixed(2)}`;
-        
+
         // Show/hide discount section
         const discountSection = document.getElementById('checkout-discount-section');
         const discountElement = document.getElementById('checkout-discount');
@@ -135,7 +135,7 @@ class CheckoutHandler {
         } else {
             if (discountSection) discountSection.classList.add('hidden');
         }
-        
+
         this.checkoutShipping.textContent = shipping === 0 ? "FREE" : `₵${shipping.toFixed(2)}`;
         this.checkoutTax.textContent = `₵${tax.toFixed(2)}`;
         this.checkoutTotal.textContent = `₵${total.toFixed(2)}`;
