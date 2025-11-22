@@ -19,6 +19,7 @@ class CheckoutHandler {
         this.checkoutShipping = document.getElementById("checkout-shipping");
         this.checkoutTax = document.getElementById("checkout-tax");
         this.checkoutTotal = document.getElementById("checkout-total");
+        this.loader = document.getElementById("checkout-loader");
 
         this.paystackPublicKey = null;
         this.cart = null;
@@ -130,8 +131,17 @@ class CheckoutHandler {
             // Refresh display with updated member status
             this.displayCheckoutItems();
             this.calculateTotal();
+
+            // Hide loader after calculations complete
+            if (this.loader) {
+                this.loader.style.display = 'none';
+            }
         } catch (error) {
             console.error("❌ Error updating member status:", error);
+            // Hide loader even on error
+            if (this.loader) {
+                this.loader.style.display = 'none';
+            }
         }
     }
 
