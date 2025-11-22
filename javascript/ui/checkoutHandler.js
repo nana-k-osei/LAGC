@@ -43,14 +43,16 @@ class CheckoutHandler {
 
             console.log('🔍 After initPromise - authReady:', Authentication.authReady, 'currentUser:', Authentication.currentUser?.email);
 
-            // Wait for auth to be ready (first auth state change has fired)
+            // Wait for auth to be ready (first auth state change has fired) with timeout
             if (!Authentication.authReady) {
                 console.log('⏳ Waiting for auth to be ready...');
                 await new Promise((resolve) => {
+                    let elapsed = 0;
                     const checkReady = setInterval(() => {
-                        if (Authentication.authReady) {
+                        elapsed += 100;
+                        if (Authentication.authReady || elapsed >= 5000) {
                             clearInterval(checkReady);
-                            console.log('✅ Auth is now ready');
+                            console.log('✅ Auth is now ready or timed out');
                             resolve();
                         }
                     }, 100);
@@ -79,6 +81,10 @@ class CheckoutHandler {
                 console.warn("⚠️ Cart is empty");
                 this.paymentBtn.disabled = true;
                 this.paymentBtn.textContent = "Cart is Empty";
+                // Hide loader even if cart is empty
+                if (this.loader) {
+                    this.loader.style.display = 'none';
+                }
                 return;
             }
 
@@ -92,6 +98,10 @@ class CheckoutHandler {
             console.log("✅ Checkout handler initialized");
         } catch (error) {
             console.error("❌ Error initializing checkout:", error);
+            // Hide loader on error
+            if (this.loader) {
+                this.loader.style.display = 'none';
+            }
         }
     }
 
