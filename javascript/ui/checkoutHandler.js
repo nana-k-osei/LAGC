@@ -129,21 +129,35 @@ class CheckoutHandler {
             discountAmount,
             isMember: this.isMember,
             memberDiscount: this.memberDiscount,
-            total
+            total,
+            cartItems: this.cart.length
         });
 
-        // Update display
-        this.checkoutSubtotal.textContent = `₵${originalSubtotal.toFixed(2)}`;
+        // Update display - show DISCOUNTED subtotal
+        this.checkoutSubtotal.textContent = `₵${subtotal.toFixed(2)}`;
 
         // Show/hide discount section
         const discountSection = document.getElementById('checkout-discount-section');
         const discountElement = document.getElementById('checkout-discount');
+
+        console.log('🔍 Discount section check:', {
+            sectionExists: !!discountSection,
+            elementExists: !!discountElement,
+            isMember: this.isMember,
+            discountAmount,
+            shouldShow: this.isMember && discountAmount > 0
+        });
+
         if (this.isMember && discountAmount > 0) {
             console.log('✅ Showing discount section');
             if (discountSection) discountSection.classList.remove('hidden');
             if (discountElement) discountElement.textContent = `-₵${discountAmount.toFixed(2)}`;
         } else {
-            console.log('❌ Hiding discount section', { isMember: this.isMember, discountAmount });
+            console.log('❌ Hiding discount section', {
+                isMember: this.isMember,
+                discountAmount,
+                memberDiscount: this.memberDiscount
+            });
             if (discountSection) discountSection.classList.add('hidden');
         }
 
