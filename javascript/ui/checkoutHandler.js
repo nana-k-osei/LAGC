@@ -9,6 +9,7 @@ import discountSystem from "./discountSystem.js";
 import inventoryManager from "./inventory.js";
 import { database } from "../config/firebaseConfig.js";
 import { ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.0/database.js";
+import { getPaystackKey } from "../config/paystackConfig.js";
 
 class CheckoutHandler {
     constructor() {
@@ -19,7 +20,7 @@ class CheckoutHandler {
         this.checkoutTax = document.getElementById("checkout-tax");
         this.checkoutTotal = document.getElementById("checkout-total");
 
-        this.paystackPublicKey = "pk_test_e9dbc9998e38056f05975341385af2167ec9b75a";
+        this.paystackPublicKey = getPaystackKey();
         this.cart = null;
         this.userEmail = null;
         this.isMember = false;
