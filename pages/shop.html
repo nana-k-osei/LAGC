@@ -312,18 +312,35 @@
     <section class="py-20 bg-white">
       <div class="container mx-auto px-8">
         <!-- Member Discount Banner -->
-        <div id="member-discount-banner" class="hidden mb-8 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-300 rounded-xl p-4 shadow-md">
+        <div
+          id="member-discount-banner"
+          class="hidden mb-8 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-300 rounded-xl p-4 shadow-md"
+        >
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
               <div class="bg-green-500 rounded-full p-2">
-                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-                  <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                <svg
+                  class="w-6 h-6 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                    clip-rule="evenodd"
+                  />
                 </svg>
               </div>
               <div>
-                <h4 class="font-bold text-green-900 text-lg">Welcome, Member! 🎉</h4>
-                <p class="text-green-700 text-sm">You're saving <span id="member-discount-percent" class="font-bold">0</span>% on all purchases</p>
+                <h4 class="font-bold text-green-900 text-lg">
+                  Welcome, Member! 🎉
+                </h4>
+                <p class="text-green-700 text-sm">
+                  You're saving
+                  <span id="member-discount-percent" class="font-bold">0</span>%
+                  on all purchases
+                </p>
               </div>
             </div>
             <div class="hidden md:block text-green-600 text-sm font-medium">
@@ -784,20 +801,22 @@
       async function updateMemberBanner() {
         const discount = await Authentication.getDiscount();
         if (discount > 0) {
-          const banner = document.getElementById('member-discount-banner');
-          const discountPercent = document.getElementById('member-discount-percent');
+          const banner = document.getElementById("member-discount-banner");
+          const discountPercent = document.getElementById(
+            "member-discount-percent"
+          );
           if (banner && discountPercent) {
             discountPercent.textContent = discount;
-            banner.classList.remove('hidden');
+            banner.classList.remove("hidden");
           }
         }
       }
 
       // Hide member discount banner
       function hideMemberBanner() {
-        const banner = document.getElementById('member-discount-banner');
+        const banner = document.getElementById("member-discount-banner");
         if (banner) {
-          banner.classList.add('hidden');
+          banner.classList.add("hidden");
         }
       }
     </script>
