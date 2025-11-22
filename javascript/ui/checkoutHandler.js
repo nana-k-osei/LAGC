@@ -173,12 +173,23 @@ class CheckoutHandler {
         let subtotal = 0;
         let originalSubtotal = 0;
 
+        console.log('💰 Starting calculation with:', {
+            isMember: this.isMember,
+            memberDiscount: this.memberDiscount,
+            cartLength: this.cart.length
+        });
+
         this.cart.forEach((item) => {
-            originalSubtotal += item.price * item.quantity;
+            const itemOriginal = item.price * item.quantity;
+            originalSubtotal += itemOriginal;
+
             const finalPrice = this.isMember
                 ? item.price * (1 - this.memberDiscount / 100)
                 : item.price;
-            subtotal += finalPrice * item.quantity;
+            const itemSubtotal = finalPrice * item.quantity;
+            subtotal += itemSubtotal;
+
+            console.log(`  Item: ${item.name}, Price: ₵${item.price}, Qty: ${item.quantity}, Original: ₵${itemOriginal.toFixed(2)}, Discounted: ₵${itemSubtotal.toFixed(2)}`);
         });
 
         const discountAmount = originalSubtotal - subtotal;
@@ -187,14 +198,16 @@ class CheckoutHandler {
         const total = subtotal + shipping + tax;
 
         console.log(`📊 Checkout Totals:`, {
-            originalSubtotal,
-            subtotal,
-            discountAmount,
+            originalSubtotal: originalSubtotal.toFixed(2),
+            subtotal: subtotal.toFixed(2),
+            discountAmount: discountAmount.toFixed(2),
             isMember: this.isMember,
             memberDiscount: this.memberDiscount,
-            total,
+            total: total.toFixed(2),
             cartItems: this.cart.length
         });
+
+        console.log(`🎯 Setting subtotal display to: ₵${subtotal.toFixed(2)}`);
 
         // Update display - show DISCOUNTED subtotal
         this.checkoutSubtotal.textContent = `₵${subtotal.toFixed(2)}`;
