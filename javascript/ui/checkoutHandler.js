@@ -100,18 +100,20 @@ class CheckoutHandler {
     async updateMemberStatus() {
         try {
             console.log('📋 updateMemberStatus called');
-            const currentUser = Authentication.currentUser;
-            console.log('🔍 Current user:', currentUser?.email, 'isMember:', Authentication.isMember);
+            console.log('🔍 Authentication state:', {
+                currentUser: Authentication.currentUser?.email,
+                isMember: Authentication.isMember,
+                membershipData: Authentication.membershipData
+            });
 
-            if (currentUser) {
-                this.userEmail = currentUser.email;
-                const memberData = await Authentication.checkMembershipStatus(currentUser.uid);
-                console.log('🔍 Member data:', memberData);
+            if (Authentication.currentUser) {
+                this.userEmail = Authentication.currentUser.email;
 
-                if (memberData) {
+                // Use Authentication's existing membership data
+                if (Authentication.isMember && Authentication.membershipData) {
                     this.isMember = true;
-                    this.memberDiscount = await Authentication.getDiscount();
-                    console.log(`✅ Member status updated: ${memberData.tier} tier, ${this.memberDiscount}% discount`);
+                    this.memberDiscount = Authentication.membershipData.discountPercentage || 0;
+                    console.log(`✅ Member status updated: ${Authentication.membershipData.tier} tier, ${this.memberDiscount}% discount`);
                 } else {
                     this.isMember = false;
                     this.memberDiscount = 0;
