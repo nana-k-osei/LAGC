@@ -37,17 +37,21 @@ class CheckoutHandler {
         this.paystackPublicKey = await getPaystackKey();
 
         try {
-            // Get user info
-            const currentUser = Authentication.currentUser;
-            if (currentUser) {
-                this.userEmail = currentUser.email;
-                const memberData = await Authentication.checkMembershipStatus(currentUser.uid);
-                if (memberData) {
-                    this.isMember = true;
-                    this.memberDiscount = await Authentication.getDiscount();
-                    console.log(`✅ Member logged in: ${memberData.tier} tier, ${this.memberDiscount}% discount`);
-                }
-            }
+            // Wait for Authentication to be ready
+            await Authentication.initPromise;
+
+            // Set up callback for when user logs in/out
+            const originalOnLogin = Authentication.onUserLoggedIn;
+            Authentication.onUserLoggedIn = (user) => {
+                if (originalOnLogin) originalOnLogin.call(Authentication, user);
+                this.updateMemberStatus();
+            };
+
+            const originalOnLogout = Authentication.onUserLoggedOut;
+            Authentication.onUserLoggedOut = () => {
+                if (originalOnLogout) originalOnLogout.call(Authentication);
+                this.updateMemberStatus();
+            };
 
             // Get cart from localStorage
             this.cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -59,9 +63,8 @@ class CheckoutHandler {
                 return;
             }
 
-            // Display cart items and calculate total
-            this.displayCheckoutItems();
-            this.calculateTotal();
+            // Initial load - get current member status
+            await this.updateMemberStatus();
 
             // Attach payment button listener
             this.paymentBtn.addEventListener("click", () => this.initiatePayment());
@@ -69,6 +72,36 @@ class CheckoutHandler {
             console.log("✅ Checkout handler initialized");
         } catch (error) {
             console.error("❌ Error initializing checkout:", error);
+        }
+    }
+
+    /**
+     * Update member status and refresh display
+     */
+    async updateMemberStatus() {
+        try {
+            const currentUser = Authentication.currentUser;
+            if (currentUser) {
+                this.userEmail = currentUser.email;
+                const memberData = await Authentication.checkMembershipStatus(currentUser.uid);
+                if (memberData) {
+                    this.isMember = true;
+                    this.memberDiscount = await Authentication.getDiscount();
+                    console.log(`✅ Member logged in: ${memberData.tier} tier, ${this.memberDiscount}% discount`);
+                } else {
+                    this.isMember = false;
+                    this.memberDiscount = 0;
+                }
+            } else {
+                this.isMember = false;
+                this.memberDiscount = 0;
+            }
+
+            // Refresh display with updated member status
+            this.displayCheckoutItems();
+            this.calculateTotal();
+        } catch (error) {
+            console.error("❌ Error updating member status:", error);
         }
     }
 
