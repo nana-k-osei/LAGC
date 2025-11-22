@@ -36,7 +36,7 @@ class Authentication {
         await firebasePromise;
         this.auth = await getAuthInstance();
         this.database = await getDatabaseInstance();
-        
+
         // Now set up auth listener
         this.initAuthListener();
     }
@@ -74,7 +74,7 @@ class Authentication {
         try {
             // Ensure Firebase is ready
             await this.initPromise;
-            
+
             // Create auth user
             const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
             const uid = userCredential.user.uid;
@@ -123,7 +123,7 @@ class Authentication {
         try {
             // Ensure Firebase is ready
             await this.initPromise;
-            
+
             console.log('Starting sign in for:', email);
             const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
             console.log('Firebase sign in successful, waiting for listener to populate data...');
@@ -165,7 +165,7 @@ class Authentication {
         try {
             // Ensure Firebase is ready
             await this.initPromise;
-            
+
             console.log('checkMembershipStatus called for uid:', uid);
             const memberRef = ref(this.database, `members/${uid}`);
             const snapshot = await get(memberRef);
