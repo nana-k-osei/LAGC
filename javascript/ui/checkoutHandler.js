@@ -37,6 +37,19 @@ class CheckoutHandler {
             // Load Paystack key
             this.paystackPublicKey = await getPaystackKey();
 
+            // Wait for Authentication to be ready
+            await Authentication.initPromise;
+
+            // Get member status from Authentication
+            if (Authentication.currentUser && Authentication.isMember && Authentication.membershipData) {
+                this.userEmail = Authentication.currentUser.email;
+                this.isMember = true;
+                this.memberDiscount = Authentication.membershipData.discountPercentage || 0;
+                console.log(`✅ Member logged in with ${this.memberDiscount}% discount`);
+            } else {
+                console.log('❌ No member discount - not logged in or not a member');
+            }
+
             // Get cart from localStorage
             this.cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -47,79 +60,20 @@ class CheckoutHandler {
                 return;
             }
 
-            // Wait for Authentication to be ready first
-            await Authentication.initPromise;
-
-            // Get member status immediately
-            if (Authentication.currentUser && Authentication.isMember && Authentication.membershipData) {
-                this.userEmail = Authentication.currentUser.email;
-                this.isMember = true;
-                this.memberDiscount = Authentication.membershipData.discountPercentage || 0;
-                console.log(`✅ Member: ${this.memberDiscount}% discount`);
-            }
-
-            // Display items with correct discount
+            // Display items with discount applied
             this.displayCheckoutItems();
             this.calculateTotal();
-
-            // Set up callback for when user logs in/out
-            const originalOnLogin = Authentication.onUserLoggedIn;
-            Authentication.onUserLoggedIn = (user) => {
-                if (originalOnLogin) originalOnLogin.call(Authentication, user);
-                this.updateMemberStatusInBackground();
-            };
-
-            const originalOnLogout = Authentication.onUserLoggedOut;
-            Authentication.onUserLoggedOut = () => {
-                if (originalOnLogout) originalOnLogout.call(Authentication);
-                this.updateMemberStatusInBackground();
-            };
 
             // Attach payment button listener
             this.paymentBtn.addEventListener("click", () => this.initiatePayment());
 
-            console.log("✅ Checkout handler initialized");
+            console.log("✅ Checkout initialized");
         } catch (error) {
             console.error("❌ Error initializing checkout:", error);
         }
     }
 
     /**
-     * Update member status in background without blocking
-     */
-    async updateMemberStatusInBackground() {
-        try {
-            console.log('📋 updateMemberStatus called');
-            console.log('🔍 Authentication state:', {
-                currentUser: Authentication.currentUser?.email,
-                isMember: Authentication.isMember,
-                membershipData: Authentication.membershipData
-            });
-
-            if (Authentication.currentUser) {
-                this.userEmail = Authentication.currentUser.email;
-
-                // Use Authentication's existing membership data
-                if (Authentication.isMember && Authentication.membershipData) {
-                    this.isMember = true;
-                    this.memberDiscount = Authentication.membershipData.discountPercentage || 0;
-                    console.log(`✅ Member discount: ${this.memberDiscount}%`);
-                } else {
-                    this.isMember = false;
-                    this.memberDiscount = 0;
-                }
-            } else {
-                this.isMember = false;
-                this.memberDiscount = 0;
-            }
-
-            // Refresh display with updated member status
-            this.displayCheckoutItems();
-            this.calculateTotal();
-        } catch (error) {
-            console.error("❌ Error updating member status:", error);
-        }
-    }    /**
      * Display cart items in checkout
      */
     displayCheckoutItems() {
