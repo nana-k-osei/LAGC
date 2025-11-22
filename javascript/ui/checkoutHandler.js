@@ -120,8 +120,17 @@ class CheckoutHandler {
 
         const discountAmount = originalSubtotal - subtotal;
         const shipping = 0; // Free shipping for now
-        const tax = subtotal * 0.075; // 7.5% tax
+        const tax = 0; // Tax is included in prices
         const total = subtotal + shipping + tax;
+
+        console.log(`📊 Checkout Totals:`, {
+            originalSubtotal,
+            subtotal,
+            discountAmount,
+            isMember: this.isMember,
+            memberDiscount: this.memberDiscount,
+            total
+        });
 
         // Update display
         this.checkoutSubtotal.textContent = `₵${originalSubtotal.toFixed(2)}`;
@@ -130,9 +139,11 @@ class CheckoutHandler {
         const discountSection = document.getElementById('checkout-discount-section');
         const discountElement = document.getElementById('checkout-discount');
         if (this.isMember && discountAmount > 0) {
+            console.log('✅ Showing discount section');
             if (discountSection) discountSection.classList.remove('hidden');
             if (discountElement) discountElement.textContent = `-₵${discountAmount.toFixed(2)}`;
         } else {
+            console.log('❌ Hiding discount section', { isMember: this.isMember, discountAmount });
             if (discountSection) discountSection.classList.add('hidden');
         }
 
