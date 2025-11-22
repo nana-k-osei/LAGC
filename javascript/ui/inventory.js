@@ -4,13 +4,23 @@
  * Prevents overselling and updates inventory when orders are completed
  */
 
-import { database } from "../config/firebaseConfig.js";
+import { firebasePromise, getDatabaseInstance } from "../config/firebaseConfig.js";
 import { ref, get, set, update } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
 class InventoryManager {
     constructor() {
         this.inventoryPath = "inventory";
-        this.initializeInventory();
+        this.database = null;
+        this.initPromise = this.init();
+    }
+
+    /**
+     * Initialize Firebase connection
+     */
+    async init() {
+        await firebasePromise;
+        this.database = await getDatabaseInstance();
+        await this.initializeInventory();
     }
 
     /**
@@ -19,7 +29,7 @@ class InventoryManager {
      */
     async initializeInventory() {
         try {
-            const inventoryRef = ref(database, this.inventoryPath);
+            const inventoryRef = ref(this.database, this.inventoryPath);
             const snapshot = await get(inventoryRef);
 
             // If inventory doesn't exist, create it with default stock
@@ -62,7 +72,8 @@ class InventoryManager {
      */
     async getStock(productId) {
         try {
-            const productRef = ref(database, `${this.inventoryPath}/${productId}`);
+            await this.initPromise;
+            const productRef = ref(this.database, `${this.inventoryPath}/${productId}`);
             const snapshot = await get(productRef);
 
             if (snapshot.exists()) {
@@ -103,7 +114,7 @@ class InventoryManager {
                 return false;
             }
 
-            const productRef = ref(database, `${this.inventoryPath}/${productId}`);
+            const productRef = ref(this.database, `${this.inventoryPath}/${productId}`);
             await update(productRef, {
                 quantity: currentStock - quantity,
                 lastUpdated: new Date().toISOString(),
@@ -126,7 +137,7 @@ class InventoryManager {
     async increaseStock(productId, quantity = 1) {
         try {
             const currentStock = await this.getStock(productId);
-            const productRef = ref(database, `${this.inventoryPath}/${productId}`);
+            const productRef = ref(this.database, `${this.inventoryPath}/${productId}`);
 
             await update(productRef, {
                 quantity: currentStock + quantity,
@@ -149,7 +160,8 @@ class InventoryManager {
      */
     async setStock(productId, quantity) {
         try {
-            const productRef = ref(database, `${this.inventoryPath}/${productId}`);
+            await this.initPromise;
+            const productRef = ref(this.database, `${this.inventoryPath}/${productId}`);
 
             await update(productRef, {
                 quantity: quantity,
@@ -170,7 +182,8 @@ class InventoryManager {
      */
     async getAllInventory() {
         try {
-            const inventoryRef = ref(database, this.inventoryPath);
+            await this.initPromise;
+            const inventoryRef = ref(this.database, this.inventoryPath);
             const snapshot = await get(inventoryRef);
 
             if (snapshot.exists()) {
