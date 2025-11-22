@@ -3,7 +3,7 @@
  * Handles user sign-up, login, logout, and member status verification
  */
 
-import { auth, database } from '../config/firebaseConfig.js';
+import { firebasePromise, getAuthInstance, getDatabaseInstance } from '../config/firebaseConfig.js';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -22,7 +22,22 @@ class Authentication {
         this.currentUser = null;
         this.isMember = false;
         this.membershipData = null;
-        this.authReady = false; // New flag to track if auth state has been determined
+        this.authReady = false;
+        this.auth = null;
+        this.database = null;
+        this.initPromise = this.init();
+    }
+
+    /**
+     * Initialize Firebase and auth listener
+     */
+    async init() {
+        // Wait for Firebase to initialize
+        await firebasePromise;
+        this.auth = await getAuthInstance();
+        this.database = await getDatabaseInstance();
+        
+        // Now set up auth listener
         this.initAuthListener();
     }
 
@@ -30,7 +45,7 @@ class Authentication {
      * Listen for authentication state changes
      */
     initAuthListener() {
-        onAuthStateChanged(auth, async (user) => {
+        onAuthStateChanged(this.auth, async (user) => {
             console.log('onAuthStateChanged fired, user:', user?.email);
             this.currentUser = user;
             if (user) {
@@ -57,14 +72,17 @@ class Authentication {
      */
     async signUp(email, password, fullName) {
         try {
+            // Ensure Firebase is ready
+            await this.initPromise;
+            
             // Create auth user
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
             const uid = userCredential.user.uid;
 
             // Get current global discount from Firebase
             let globalDiscount = 0;
             try {
-                const discountRef = ref(database, 'discounts/global');
+                const discountRef = ref(this.database, 'discounts/global');
                 const snapshot = await get(discountRef);
                 if (snapshot.exists()) {
                     globalDiscount = snapshot.val().percentage || 0;
@@ -84,7 +102,7 @@ class Authentication {
                 isAdmin: false, // New members are not admins by default
             };
 
-            await set(ref(database, `members/${uid}`), memberData);
+            await set(ref(this.database, `members/${uid}`), memberData);
 
             this.currentUser = userCredential.user;
             this.isMember = true;
@@ -103,8 +121,11 @@ class Authentication {
      */
     async signIn(email, password) {
         try {
+            // Ensure Firebase is ready
+            await this.initPromise;
+            
             console.log('Starting sign in for:', email);
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
             console.log('Firebase sign in successful, waiting for listener to populate data...');
             this.currentUser = userCredential.user;
 
@@ -125,7 +146,7 @@ class Authentication {
      */
     async signOut() {
         try {
-            await signOut(auth);
+            await signOut(this.auth);
             this.currentUser = null;
             this.isMember = false;
             this.membershipData = null;
@@ -142,8 +163,11 @@ class Authentication {
      */
     async checkMembershipStatus(uid) {
         try {
+            // Ensure Firebase is ready
+            await this.initPromise;
+            
             console.log('checkMembershipStatus called for uid:', uid);
-            const memberRef = ref(database, `members/${uid}`);
+            const memberRef = ref(this.database, `members/${uid}`);
             const snapshot = await get(memberRef);
 
             console.log('Firebase query result - exists:', snapshot.exists());
@@ -256,7 +280,7 @@ class Authentication {
      */
     async updateMemberProfile(uid, updates) {
         try {
-            await update(ref(database, `members/${uid}`), updates);
+            await update(ref(this.database, `members/${uid}`), updates);
             this.membershipData = { ...this.membershipData, ...updates };
             console.log('Member profile updated');
             return { success: true };
@@ -271,7 +295,7 @@ class Authentication {
      */
     async getAllMembers() {
         try {
-            const membersRef = ref(database, 'members');
+            const membersRef = ref(this.database, 'members');
             const snapshot = await get(membersRef);
 
             if (!snapshot.exists()) {
@@ -300,7 +324,7 @@ class Authentication {
      */
     async setAdminStatus(memberId, isAdmin) {
         try {
-            await update(ref(database, `members/${memberId}`), {
+            await update(ref(this.database, `members/${memberId}`), {
                 isAdmin: isAdmin,
             });
             console.log(`Member ${memberId} admin status updated to ${isAdmin}`);
